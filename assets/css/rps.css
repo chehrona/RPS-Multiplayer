@@ -74,12 +74,16 @@ input:focus::placeholder {
 
 #playZone {
     display: inline-flex;
-    border: 1px solid white;
     margin-left: 5%;
     margin-right: 5%;
     box-sizing: content-box;
     width: 90%;
     min-height: 450px;
+}
+
+.scores {
+    margin-left: 10%;
+    margin-top: 10%;
 }
 
 .borders {
@@ -138,9 +142,9 @@ input:focus::placeholder {
 i {
     background-color: transparent;
     font-size: 70px;
-    margin-left: 2%;
-    margin-right: 2%;
-    margin-top: 5%;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 10%;
     margin-bottom: 5%;
 }
 
@@ -180,6 +184,7 @@ i {
 }
 
 .wins {
+    margin-top: 10%;
     display: inline-flex;
     font-size: 50px;
     color: rgb(4, 253, 16);
@@ -206,6 +211,13 @@ i {
     animation-iteration-count: infinite;
 }
 
+#winCount {
+    margin-left: 3%;
+}
+
+#lossCount {
+    margin-left: 3%;
+}
 
 @keyframes shadowFade {
     50% {box-shadow: 0px 0px 30px rgb(0, 255, 251);}
