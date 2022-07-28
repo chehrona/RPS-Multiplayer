@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RPS</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="assets/css/rps.css">
+</head>
+<body>
+    <div id="titleBorder">
+        <div class="title">
+            <h1>R</h1>
+            <h1 id="tO" class="flickerLetter">o</h1>
+            <h1>ck</h1>
+        </div>
+        <div class="title">
+            <h1>Pa</h1>
+            <h1 id="tPe" class="flickerLetter">pe</h1>
+            <h1>r</h1>
+        </div>
+        <div class="title">
+            <h1 id="tS" class="flickerLetter">S</h1>
+            <h1>ci</h1>
+            <h1 id="tS" class="flickerLetter">s</h1>
+            <h1>sors</h1>
+        </div>
+    </div>
+    <div id="playerName">
+        <input placeholder="Your name">
+        <button type="submit">Start</button>
+    </div>
+    <div id="playZone">
+    <div id="yourScreen" class="borders">
+        <h1 id="yourName" class="names">Player 1</h1>
+        <div id="icons">
+            <i class="fa-solid fa-hand-fist" id="rock"></i>
+            <i class="fa-solid fa-hand" id="paper"></i>
+            <i class="fa-solid fa-hand-scissors" id="scissor"></i>
+        </div>
+        <div>
+            <h1 class="wins">Wi</h1>
+            <h1 class="wins flickerWin">n</h1>
+            <h1 class="wins">s  </h1>
+            <h1 class="wins" id="winCount">0</h1>
+            <h1 class="losses flickerLoss">L</h1>
+            <h1 class="losses">os</h1>
+            <h1 class="losses flickerLoss">s</h1>
+            <h1 class="losses">ses  </h1>
+            <h1 class="losses" id="lossCount">0</h1>
+        </div>  
+    </div>
+    <div id="chatScreen" class="borders"></div>
+    <div id="opponentScreen" class="borders">
+        <h1 id="opponentName" class="names">Player 2</h1>
+        <div id="icons">
+            <i class="fa-solid fa-hand-fist" id="rock"></i>
+            <i class="fa-solid fa-hand" id="paper"></i>
+            <i class="fa-solid fa-hand-scissors" id="scissor"></i>
+        </div>
+        <div>
+            <div>
+                <h1 class="wins flickerWin">W</h1>
+                <h1 class="wins">i</h1>
+                <h1 class="wins flickerWin">n</h1>
+                <h1 class="wins">s  </h1>
+                <h1 class="wins" id="winCount">0</h1>
+                <h1 class="losses">L</h1>
+                <h1 class="losses flickerLoss">os</h1>
+                <h1 class="losses">ses  </h1>
+                <h1 class="losses" id="lossCount">0</h1>
+            </div>  
+        </div>   
+    </div>
+    </div>  
+
+</body>
+</html>
