@@ -93,6 +93,7 @@ h1 {
     color: white;
 }
 
+#nameEnter:hover::placeholder,
 #nameEnter:focus::placeholder {
     opacity: 0;
 }
