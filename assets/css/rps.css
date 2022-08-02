@@ -15,12 +15,15 @@ body *:after {
     src: url("NightVibesFreeVersion-8MglA.otf") format("opentype");   
 }
 
-.icons {
+.iconsContainer {
     text-align: center;
     color: rgb(48, 47, 47);
     margin-top: 3%;
 }
 
+.icons {
+  color: rgb(48, 47, 47);
+}
 /* Blue borders for the titles and cards */
 .borders {
   border: 8px double rgb(0, 255, 251);
@@ -46,7 +49,7 @@ h1 {
   border: 4px double rgb(0, 255, 251);
   display: flex;
   align-items: center;
-  margin-bottom: 1%;
+  margin-bottom: 3%;
   padding-top: 2px;
   padding-bottom: 2px;
   margin-left: 35%;
@@ -286,31 +289,31 @@ i {
     margin-right: 3%;
 }
 
-#paper {
+.paper {
     -webkit-text-stroke: 2px rgb(255, 149, 0);
     text-shadow: 0px 0px 20px rgb(255, 149, 0);   
 }
 
-#paper:hover {
+.paper:hover {
     text-shadow: 0px 0px 50px rgb(255, 149, 0);
 }
 
-#rock {
+.rock {
     -webkit-text-stroke: 2px rgb(229, 247, 31);
     text-shadow: 0px 0px 20px rgb(229, 247, 31);
 }
 
-#rock:hover {
+.rock:hover {
     text-shadow: 0px 0px 50px rgb(229, 247, 31);
 }
 
-#scissor {
+.scissor {
     -webkit-text-stroke: 2px rgb(4, 253, 16);
     text-shadow: 0px 0px 20px rgb(4, 253, 16);
     transform: rotate3d(1, 1, 0, 180deg); 
 }
 
-#scissor:hover {
+.scissor:hover {
     text-shadow: 0px 0px 50px rgb(4, 253, 16);
 }
 
@@ -368,8 +371,6 @@ i {
 }
 
 #robotM {
-  font-size: 65px;
-  margin-bottom: 5px;
   animation-iteration-count: infinite; 
 }
 
@@ -377,9 +378,6 @@ i {
   text-shadow: 0px 0px 20px rgb(147, 74, 255);
 }
 
-#robotX {
-  animation-delay: 5s;
-}
 
 
 

@@ -32,16 +32,19 @@
             <input id="nameEnter" placeholder="Your name">
             <button type="submit" id="start">Start</button>
         </div> 
-        
+    <div class="popup inactive">
+        <p id="popupContent">Put your name in dufus</p>
+        <i class="fa-solid fa-circle-xmark xMark"></i>
+    </div>
     <div id="playZone">
         <div id="yourScreen">
-            <i class="fa-solid fa-user icons bots" id="robotU"></i>
+            <i class="fa-solid fa-user icons bots playerIcon uIcons" id="robotU"  data-id-player="1"></i>
             <div class="borders" id="uBorder">
                 <h1 id="yourName" class="names">Player 1</h1>
-                <div class="icons">
-                    <i class="fa-solid fa-hand-fist" id="rock" val="0"></i>
-                    <i class="fa-solid fa-hand" id="paper" val="1"></i>
-                    <i class="fa-solid fa-hand-scissors" id="scissor" val="2"></i>
+                <div class="iconsContainer" id="uIconContainer">
+                    <i class="fa-solid fa-hand-fist icons rock uIcons" id="uRock" data-id-player="1" ></i>
+                    <i class="fa-solid fa-hand icons paper uIcons" id="uPaper" data-id-player="1"></i>
+                    <i class="fa-solid fa-hand-scissors scissor uIcons" id="uScissor" data-id-player="1"></i>
                 </div>
                 <div class="scores">
                     <h1 class="wins">Wi</h1>
@@ -87,13 +90,13 @@
     </div>
     
     <div id="opponentScreen"> 
-        <i class="fa-solid fa-robot icons bots" id="robotX"></i>
+        <i class="fa-solid fa-robot icons bots playerIcon xIcons" id="robotX" data-id-player="2"></i>
         <div class="borders" id="xBorder">
             <h1 id="opponentName" class="names">Player 2</h1>
-        <div class="icons">
-            <i class="fa-solid fa-hand-fist" id="rock"></i>
-            <i class="fa-solid fa-hand" id="paper"></i>
-            <i class="fa-solid fa-hand-scissors" id="scissor"></i>
+        <div class="iconsContainer" id="xIconContainer">
+            <i class="fa-solid fa-hand-fist icons rock xIcons" id="xRock" data-id-player="2"></i>
+            <i class="fa-solid fa-hand icons paper xIcons" id="xPaper" data-id-player="2"></i>
+            <i class="fa-solid fa-hand-scissors scissor xIcons" id="xScissor" data-id-player="2"></i>
         </div>
         <div>
             <div class="scores">
@@ -114,6 +117,6 @@
     </div>
     </div>  
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="assets/javascript/rps.js"></script>
+    <script type="module" src="assets/javascript/rps.js"></script>
 </body>
 </html>

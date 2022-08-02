@@ -1,10 +1,11 @@
-.inactiveIcon {
+.icons.inactiveIcon {
     text-shadow: none;
     animation: none;
+    background-color: unset;
 }
 
 .iconPicked {
-    text-shadow: 0px 0px 50px white;
+    text-shadow: 0px 0px 70px white;
     -webkit-text-stroke: 2px rgb(147, 74, 255);
     margin-bottom: 20px
 }
@@ -27,25 +28,83 @@
 }
 
 .popup {
-    visibility: hidden;
+    display: flex;
     position: absolute;
     background: rgb(48, 47, 47);
-    border: 3px solid rgb(0, 255, 251);
-    /* width: 50%;
-    height: 50%; */
-    /* left: 25%; */
+    border: 5px double rgb(4, 253, 16);
+    box-shadow: 0px 0px 20px rgb(4, 253, 16);
+    min-width: 20%;
+    min-height: 10%;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 10;
-  }
-
-  .popup.active {
-    visibility: visible;
+    margin-top: 10%;
+    padding: 1%;
+    color: white;
+    border-radius: 10px;
+    font-size: 24px;
+    align-items: center;
     text-align: center;
+    font-family: "Lucida Console", "Courier New", monospace;
   }
 
-  .popupContent {
-    visibility: hidden;
+  .active {
+    opacity: 1;
   }
-  
-  .popupContent.active {
-    visibility: visible;
+
+  .inactive {
+    opacity: 0;
+    display: none;
+  }
+
+  .inactiveBackground {
+    opacity: 0.45;
+  }
+
+  .xMark {
+    position: absolute;
+    right: -18px;
+    top: -18px;
+    background-color: transparent;
+    border: 0px transparent;
+    color: rgb(48, 47, 47);
+    font-size: 32px;
+    -webkit-text-stroke: 2px red;
+    text-shadow: 0px 0px 10px red;
+    margin: 0px;
+  }
+
+  .iconsContainer .biggerIcon {
+    font-size: 90px;
+  }
+
+  .disabled {
+    pointer-events: none;
+  }
+
+  /* #yourScreen.disabled {
+    pointer-events: none;
+  }
+
+  #opponentScreen.disabled {
+    pointer-events: none;
+  } */
+
+  .highlightPlayerIcon {
+    animation-name: bouncy;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-delay: none;
+  }
+
+  @keyframes bouncy {
+    to {
+      transform: scale(1.2);
+    }
+  }
+
+  #spinner {
+    -webkit-text-stroke: 2px rgb(253, 4, 154);
+    text-shadow: 0px 0px 20px rgb(253, 4, 154); 
   }
