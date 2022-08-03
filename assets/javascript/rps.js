@@ -17,6 +17,7 @@ const db = getDatabase(app);
 const playersRef = ref(db, "players");
 const playerOneRef = ref(db, "players/1");
 const playerTwoRef = ref(db, "players/2");
+const turnRef = ref(db, "turn");
 
 
 $(document).ready(function () {
@@ -29,39 +30,95 @@ $(document).ready(function () {
     // Declaring global variables.
     let isPlayerOneConnected = false;
     let isPlayerTwoConnected = false;
+    let playerTurn = null;
     let playerName = "";
     let playerOneName = "";
     let playerTwoName = "";
     let playerId = "";
     let spinnerIcon = '<i class="fa-solid fa-spinner fa-spin-pulse biggerIcon" id="spinner"></i>';
-
+    
     // Db values changed event listener.
     // This function is called everytime players data changes.
     onValue(playersRef, function (snapshot) {
         let dbData = snapshot.val();
-
-        
-
-        let firstPlayerId = "1" in dbData;
-        let secondPlayerId = "2" in dbData;
+        let playerOneScreen = null;
+        let playerTwoScreen = null;
 
         if (dbData === null) {
             isPlayerOneConnected = false;
             isPlayerTwoConnected = false;
             return;
         }
-        
+
+        let firstPlayerId = "1" in dbData;
+        let secondPlayerId = "2" in dbData;
+
         if (firstPlayerId) {
+            playerOneScreen = true;
             playerOneName = snapshot.val()["1"].name;
-            $("#yourName").html(playerOneName);
             isPlayerOneConnected = true;
+            $("#yourName").html(playerOneName);
+            $("#opponentName").html("Joining...");
+            $("#robotX").addClass("disabled");
+            if (!isPlayerTwoConnected) {
+                $("#opponentName").html("Joining...");
+            }
         }
         
         if (secondPlayerId) {
+            playerTwoScreen = true;
             playerTwoName = snapshot.val()["2"].name;
             isPlayerTwoConnected = true;
             $("#opponentName").html(playerTwoName);
+            $("#robotU").addClass("disabled");
+            if (!isPlayerOneConnected) {
+                $("#yourName").html("Joining...");
+            }
         } 
+
+        if (isPlayerOneConnected && isPlayerTwoConnected) {
+            $(".xIcons").removeClass("disabled");
+            $(".uIcons").removeClass("disabled");
+        } 
+        else {
+            $(".xIcons").addClass("disabled");
+            $(".uIcons").addClass("disabled")
+        }
+        $(".playerIcon").removeClass("highlightPlayerIcon");
+    });
+
+    onValue(turnRef, function (snapshot) {
+        playerTurn = snapshot.val();
+
+        if (playerTurn == "1") {
+            $(".playerIcon").css({"pointer-events": "none"});
+            if (playerTurn === playerId) {
+                $("#uBorder").addClass("currentPlayer");
+                $("#robotU").addClass("iconPicked");
+                $("#uBorder").removeClass("bordersAnim");
+                $("#xBorder").removeClass("bordersAnim");
+                $(".xIcons").addClass("inactiveIcon");
+            } else {
+                $("#uBorder").removeClass("bordersAnim");
+                $("#uBorder").addClass("currentPlayer");
+                $("#robotU").addClass("iconPicked");
+                $(".uIcons").addClass("inactiveIcon");
+            }
+        } else if (playerTurn == "2") {
+            $(".playerIcon").css({"pointer-events": "none"});
+            if (playerTurn === playerId) {
+                $("#xBorder").addClass("currentPlayer");
+                $("#robotX").addClass("iconPicked");
+                $("#xBorder").removeClass("bordersAnim");
+                $("#uBorder").removeClass("bordersAnim");
+                $(".uIcons").addClass("inactiveIcon");
+            } else {
+                $("#xBorder").removeClass("bordersAnim");
+                $("#xBorder").addClass("currentPlayer");
+                $("#robotX").addClass("iconPicked");
+                $(".xIcons").addClass("inactiveIcon");
+            }
+        }
 
     });
 
@@ -82,16 +139,8 @@ $(document).ready(function () {
 
             // If the player 1 slot is occupied, immediately put the entered name to the opponent screen to prevent manual selection.
             if (isPlayerOneConnected) {
-                $("#yourScreen").addClass("disabled");
                 $("#opponentName").html(playerName);
-                $("#robotX").removeClass("bots");
-                $("#robotX").addClass("iconPicked");
-                $("#xBorder").removeClass(".borders");
-                $("#xBorder").addClass("inanimBorder");
-                $("#robotU").addClass("inactiveIcon");
-                $("#uBorder").removeClass(".borders");
-                $("#uBorder").addClass("inactiveBorder");
-                $(".playerIcon").removeClass("highlightPlayerIcon");
+                $("#xBorder").removeClass("bordersAnim");
                 
                 set(playerTwoRef, {
                     name: playerName,
@@ -100,19 +149,11 @@ $(document).ready(function () {
                 });
 
                 onDisconnect(playerTwoRef).remove();
+                playerId = "2";
 
             } else if (isPlayerTwoConnected) {
-                $("#opponentScreen").addClass("disabled");
                 $("#yourName").html(playerName);
-                $("#robotU").removeClass("bots");
-                $("#robotU").addClass("iconPicked");
-                $("#uBorder").removeClass(".borders");
-                $("#uBorder").addClass("inanimBorder");
-                $("#robotX").addClass("inactiveIcon");
-                $("#xBorder").removeClass(".borders");
-                $("#xBorder").addClass("inactiveBorder");
-                $(".playerIcon").removeClass("highlightPlayerIcon");
-                
+                $("#uBorder").removeClass("bordersAnim");
                 set(playerOneRef, {
                     name: playerName,
                     losses: 0,
@@ -120,6 +161,7 @@ $(document).ready(function () {
                 });
 
                 onDisconnect(playerOneRef).remove();
+                playerId = "1";
             }
            
             //  Prevents entering another name.
@@ -138,6 +180,14 @@ $(document).ready(function () {
         }
 
         playerId = $(this).attr("data-id-player");
+        
+        update(ref(db), {
+            turn: playerId
+        });
+
+        if (!isPlayerOneConnected && !isPlayerTwoConnected) {
+            onDisconnect(turnRef).remove();
+        }
 
         // Save to db
         let playerRef = ref(db, "players/" + playerId);
@@ -147,44 +197,20 @@ $(document).ready(function () {
             wins: 0
         });
 
-        onDisconnect(playerRef).remove();
-
-        // Update UI
-        if (isPlayerOneConnected) {
-            $("#opponentScreen").addClass("disabled");
-            $("#robotU").removeClass("bots");
-            $("#robotU").addClass("iconPicked");
-            $("#uBorder").removeClass(".borders");
-            $("#uBorder").addClass("inanimBorder");
-            $("#robotX").addClass("inactiveIcon");
-            $("#xBorder").removeClass(".borders");
-            $("#xBorder").addClass("inactiveBorder");
-        }  else if (isPlayerTwoConnected) {
-            $("#yourScreen").addClass("disabled");
-            $("#robotX").removeClass("bots");
-            $("#robotX").addClass("iconPicked");
-            $("#xBorder").removeClass(".borders");
-            $("#xBorder").addClass("inanimBorder");
-            $("#robotU").addClass("inactiveIcon");
-            $("#uBorder").removeClass(".borders");
-            $("#uBorder").addClass("inactiveBorder");         
-        }      
-
-        $(".playerIcon").removeClass("highlightPlayerIcon");
-        
+        onDisconnect(playerRef).remove(); 
     });
     
     $(".rock").on("click", function () {
         if (isPlayerOneConnected && isPlayerTwoConnected) {
-            $(".playerIcon").addClass("disable");
-        } else if (isPlayerOneConnected) {
-            createsModals("Wait for player 2 to join");
-            $("#playZone").addClass("disabled");
-            return;
-        } else if (isPlayerTwoConnected) {
-            createsModals("Wait for player 1 to join");
-            $("#playZone").addClass("disabled");
-            return;
+            $(".playerIcon").addClass("disabled");
+        // } else if (isPlayerOneConnected) {
+        //     createsModals("Wait for player 2 to join");
+        //     $("#yourScreen").addClass("disabled");
+        //     return;
+        // } else if (isPlayerTwoConnected) {
+        //     createsModals("Wait for player 1 to join");
+        //     $("#opponentScreen").addClass("disabled");
+        //     return;
         }  
         if ((playerName == "") || (!isPlayerOneConnected) || (!isPlayerTwoConnected)) {
             createsModals("Please enter your name");

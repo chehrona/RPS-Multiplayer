@@ -25,13 +25,16 @@ body *:after {
   color: rgb(48, 47, 47);
 }
 /* Blue borders for the titles and cards */
-.borders {
+.bordersAnim {
+  animation: shadowFade 10s infinite;
+  animation-delay: 4s;
+}
+
+.bordersInanim {
   border: 8px double rgb(0, 255, 251);
   border-radius: 20px;
   padding-top: 1%;
   display: block;
-  animation: shadowFade 10s infinite;
-  animation-delay: 4s;
 }
 
 /* Titles for the game, player names and wins */
