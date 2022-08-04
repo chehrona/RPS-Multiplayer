@@ -42,22 +42,22 @@
             <div class="bordersAnim bordersInanim Anim" id="uBorder">
                 <h1 id="yourName" class="names">Player 1</h1>
                 <div class="iconsContainer" id="uIconContainer">
-                    <i class="fa-solid fa-hand-fist icons rock uIcons uHands disabled" id="uRock" data-id-player="1" ></i>
-                    <i class="fa-solid fa-hand icons paper uIcons uHands disabled" id="uPaper" data-id-player="1"></i>
-                    <i class="fa-solid fa-hand-scissors scissor uIcons uHands disabled" id="uScissor" data-id-player="1"></i>
+                    <i class="fa-solid fa-hand-fist icons playerChoice rock uIcons uHands disabled" id="uRock" data-choice="rock" ></i>
+                    <i class="fa-solid fa-hand icons playerChoice paper uIcons uHands disabled" id="uPaper" data-choice="paper"></i>
+                    <i class="fa-solid fa-hand-scissors playerChoice scissor uIcons uHands disabled" id="uScissor" data-choice="scissors"></i>
                 </div>
                 <div class="scores">
                     <h1 class="wins">Wi</h1>
                     <h1 class="wins flicker">n</h1>
                     <h1 class="wins">s</h1>
-                    <h1 class="wins" id="winCount">0</h1>
+                    <h1 class="wins" id="uWinCount">0</h1>
                 </div>
                 <div class="scores">
                     <h1 class="losses flicker">L</h1>
                     <h1 class="losses">os</h1>
                     <h1 class="losses flicker">s</h1>
                     <h1 class="losses">es</h1>
-                    <h1 class="losses" id="lossCount">0</h1>
+                    <h1 class="losses" id="uLossCount">0</h1>
                 </div>  
             </div>
         </div>
@@ -94,9 +94,9 @@
         <div class="bordersAnim bordersInanim " id="xBorder">
             <h1 id="opponentName" class="names">Player 2</h1>
         <div class="iconsContainer" id="xIconContainer">
-            <i class="fa-solid fa-hand-fist icons rock xHands xIcons disabled" id="xRock" data-id-player="2"></i>
-            <i class="fa-solid fa-hand icons paper xIcons xHands disabled" id="xPaper" data-id-player="2"></i>
-            <i class="fa-solid fa-hand-scissors scissor xHands xIcons disabled" id="xScissor" data-id-player="2"></i>
+            <i class="fa-solid fa-hand-fist icons playerChoice rock xHands xIcons disabled" id="xRock" data-choice="rock"></i>
+            <i class="fa-solid fa-hand icons playerChoice paper xIcons xHands disabled" id="xPaper" data-choice="paper"></i>
+            <i class="fa-solid fa-hand-scissors playerChoice scissor xHands xIcons disabled" id="xScissor" data-choice="scissors"></i>
         </div>
         <div>
             <div class="scores">
@@ -104,13 +104,13 @@
                 <h1 class="wins">i</h1>
                 <h1 class="wins flicker">n</h1>
                 <h1 class="wins">s</h1>
-                <h1 class="wins" id="winCount">0</h1>
+                <h1 class="wins" id="xWinCount">0</h1>
             </div>
             <div class="scores">
                 <h1 class="losses">L</h1>
                 <h1 class="losses flicker">os</h1>
                 <h1 class="losses">ses</h1>
-                <h1 class="losses" id="lossCount">0</h1>
+                <h1 class="losses" id="xLossCount">0</h1>
             </div>  
         </div>   
     </div>

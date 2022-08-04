@@ -352,12 +352,20 @@ i {
     animation-iteration-count: infinite;
 }
 
-#winCount {
+#uWinCount {
     margin-left: 3%;
 }
 
-#lossCount {
+#xWinCount {
+  margin-left: 3%;
+}
+
+#uLossCount {
     margin-left: 3%;
+}
+
+#xLossCount {
+  margin-left: 3%;
 }
 
 .bots {
