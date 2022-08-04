@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js'
-import { getDatabase, ref, set, onValue, update, push, child, onDisconnect } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js"
+import { getDatabase, ref, set, onValue, update, remove, onDisconnect } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js"
 
 const firebaseConfig = {
   apiKey: "AIzaSyCZrfcX2V7iJtWNDmyyU6lan6mmlS1o3Hw",
@@ -70,7 +70,7 @@ $(document).ready(function () {
             playerOneName = snapshot.val()["1"].name;
             isPlayerOneConnected = true;
             $("#yourName").html(playerOneName);
-            $("#opponentName").html("Joining...");
+            // $("#opponentName").html("Joining...");
             $("#robotX").addClass("disabled");
             if (!isPlayerTwoConnected) {
                 $("#opponentName").html("Joining...");
@@ -87,16 +87,6 @@ $(document).ready(function () {
             }
         } 
 
-        if (isPlayerOneConnected && isPlayerTwoConnected) {
-            $(".xIcons").removeClass("disabled");
-            $(".uIcons").removeClass("disabled");
-        } 
-        else {
-            $(".xIcons").addClass("disabled");
-            $(".uIcons").addClass("disabled")
-        }
-        $(".playerIcon").removeClass("highlightPlayerIcon");
-
         // Retrieves choice data for each player
         let firstPlayerChoice = snapshot.child("1/choice").exists();
         let secondPlayerChoice = snapshot.child("2/choice").exists();
@@ -104,11 +94,15 @@ $(document).ready(function () {
         if (firstPlayerChoice) {
             playerOneChoice = dbData["1"].choice;
             hasPlayerOneChosen = true;
+        } else {
+            hasPlayerOneChosen = false;
         }
 
         if (secondPlayerChoice) {
             playerTwoChoice = dbData["2"].choice;
             hasPlayerTwoChosen = true;
+        } else {
+            hasPlayerTwoChosen = false;
         }
 
         // Retrieves wins and losses
@@ -127,45 +121,45 @@ $(document).ready(function () {
     onValue(turnRef, function (snapshot) {
         playerTurn = snapshot.val();
 
+        $("#uBorder").removeClass("bordersAnim");
+        $("#xBorder").removeClass("bordersAnim");
+
         if (playerTurn == "1") {
-            $(".playerIcon").css({"pointer-events": "none"});
             // Removes highlights from the player 2 and adds it to player 1
             $("#xBorder").removeClass("currentPlayer");
-            $("#robotX").removeClass("iconPicked");
             $("#uBorder").addClass("currentPlayer");
+
+            $("#robotX").removeClass("iconPicked");
             $("#robotU").addClass("iconPicked");
-            $("#uBorder").removeClass("bordersAnim");
+
+            $(".xHands").addClass("disabled");
             if (playerTurn === playerId) {
                 // Highlight player 1 and enable buttons
-                $(".uIcons").removeClass("removeEvent");
-                $("#xBorder").removeClass("bordersAnim");
-                $(".xIcons").addClass("inactiveIcon");
+                $(".uHands").removeClass("disabled");
             } else {
                 // Highlight player 1 and disable buttons
-                $(".xIcons").addClass("removeEvent");
-                $(".uIcons").addClass("inactiveIcon");
+                $(".uHands").addClass("disabled");
             }
         } else if (playerTurn == "2") {
-            $(".playerIcon").css({"pointer-events": "none"});
             // Removes highlights from the player 1 and adds it to player 2
             $("#uBorder").removeClass("currentPlayer");
-            $("#robotU").removeClass("iconPicked");
             $("#xBorder").addClass("currentPlayer");
+
+            $("#robotU").removeClass("iconPicked");
             $("#robotX").addClass("iconPicked");
-            $("#xBorder").removeClass("bordersAnim");
+
+            $(".uHands").addClass("disabled");
             if (playerTurn === playerId) {
-                $(".xIcons").removeClass("removeEvent");
-                $("#uBorder").removeClass("bordersAnim");
-                $(".uIcons").addClass("inactiveIcon");
+                $(".xHands").removeClass("disabled");
             } else {
-                $(".uIcons").addClass("removeEvent");
-                $("#xBorder").addClass("currentPlayer");
+                $(".xHands").addClass("disabled");
             }
         } 
 
         // If player 1 has made a choice and 2 hasn't. Add loading sign and update the UI
         if (hasPlayerOneChosen && !hasPlayerTwoChosen) {
             if (playerId == "1") {
+                // Removes two other non-clicked icons
                 $(".uHands").addClass("inactive");
                 $(".xHands").addClass("inactive");
                 $("#xIconContainer").append(spinnerIcon);
@@ -173,7 +167,6 @@ $(document).ready(function () {
                 $(".uHands").addClass("inactive");
                 $("#uIconContainer").append(checkMark);
             } 
-
         }
 
         // If both players have made a choice
@@ -188,67 +181,79 @@ $(document).ready(function () {
             if (playerTurn == "3") {
                 revealsChoices();
                 gameRules();
-                setTimeout(resetsUI, 2000);
-                resetsDatabase();
-                
+                setTimeout(resetGame, 4000);
             }
         }
-        
+
     });
 
     // Player types name and presses enter key
     $("#nameEnter").keypress(function (e) {
-        if (e.keyCode == "13") {
-            playerName = $("#nameEnter").val().trim();
-            if (playerName === "") {
-                createsModals("Please enter your name");
-                return;
-            } 
-            
-            // Bounce icon to indicate select player
-            $(".playerIcon").addClass("highlightPlayerIcon");
 
-            $(this).val("");
-            $(this).blur();
-
-            // If the player 1 slot is occupied, immediately put the entered name to the opponent screen to prevent manual selection.
-            if (isPlayerOneConnected) {
-                $("#opponentName").html(playerName);
-                $("#xBorder").removeClass("bordersAnim");
-                
-                set(playerTwoRef, {
-                    name: playerName,
-                    losses: 0,
-                    wins: 0
-                });
-
-                onDisconnect(playerTwoRef).remove();
-                playerId = "2";
-
-            } else if (isPlayerTwoConnected) {
-                $("#yourName").html(playerName);
-                $("#uBorder").removeClass("bordersAnim");
-                set(playerOneRef, {
-                    name: playerName,
-                    losses: 0,
-                    wins: 0
-                });
-
-                onDisconnect(playerOneRef).remove();
-                playerId = "1";
-            }
-
-            if (isPlayerOneConnected && isPlayerTwoConnected) {
-                update(ref(db), {
-                    turn: "1"
-                });
-            }
-            //  Prevents entering another name.
-            $("#nameEnter").attr("disabled", true);  
+        // Only accept 'enter' key
+        if (e.keyCode != "13") {
+            return;
         }
+        
+        playerName = $("#nameEnter").val().trim();
+        if (playerName === "") {
+            createsModals("Please enter your name");
+            return;
+        } 
+        
+        // Bounce icon to indicate select player
+        $(".playerIcon").addClass("highlightPlayerIcon");
+
+        $(this).val("");
+        $(this).blur();
+
+        // If the player 1 slot is occupied, immediately put the entered name to the opponent screen to prevent manual selection.
+        if (isPlayerOneConnected) {
+            $("#opponentName").html(playerName);
+
+            playerId = "2";
+            joinGame();
+
+        } else if (isPlayerTwoConnected) {
+            $("#yourName").html(playerName);
+            
+            playerId = "1";
+            joinGame();
+        }
+
+        if (isPlayerOneConnected && isPlayerTwoConnected) {
+            // Player 1 always starts first
+            update(ref(db), {
+                turn: "1"
+            });
+
+            // Remove turn when a player disconnects
+            onDisconnect(turnRef).remove();
+
+            // Disable avatar selectors to disabling joining again
+            $(".playerIcon").removeClass("highlightPlayerIcon");
+           
+        }
+        //  Prevents entering another name.
+        $("#nameEnter").attr("disabled", true);  
     });
 
+    let joinGame = function() {
+        // Save to db
+        let playerRef = ref(db, "players/" + playerId);
+        set(playerRef, {
+            name: playerName,
+            losses: 0,
+            wins: 0
+        });
+
+        onDisconnect(playerRef).remove();
+    }
+
     $(".playerIcon").on("click", function () {
+
+        $(".playerIcon").removeClass("highlightPlayerIcon");
+        
         // Prevents user updates if either of the player is connected.
         if (isPlayerOneConnected || isPlayerTwoConnected) {
             return;
@@ -260,17 +265,7 @@ $(document).ready(function () {
 
         playerId = $(this).attr("data-id-player");
 
-        // Save to db
-        let playerRef = ref(db, "players/" + playerId);
-        set(playerRef, {
-            name: playerName,
-            losses: 0,
-            wins: 0
-        });
-
-        onDisconnect(playerRef).remove();
-
-        
+        joinGame();
     });
     
     $(".playerChoice").on("click", function () {
@@ -278,40 +273,28 @@ $(document).ready(function () {
 
         $(this).addClass("biggerIcon");
 
+        // Player 1 always makes first choice
         if (playerTurn == "1") {
 
             update(playerOneRef, {
                 choice: choice
             });
             
-            if (hasPlayerTwoChosen) {
-                update(ref(db), {
-                    turn: "3"
-                }); 
-            } else {
-                update(ref(db), {
-                    turn: "2"
-                }); 
-            }
-                       
-        } else {
+            update(ref(db), {
+                turn: "2"
+            }); 
+        } else if (playerTurn == "2") {
             update(playerTwoRef, {
                 choice: choice
             });
-            
-            if (hasPlayerOneChosen) {
-                update(ref(db), {
-                    turn: "3"
-                }); 
-            } else {
-                update(ref(db), {
-                    turn: "1"
-                }); 
-            }    
+            // Turn 3 means game finished
+            update(ref(db), {
+                turn: "3"
+            });
         }
     });
     
-    let resetsDatabase = function() {
+    let resetGame = function() {
         set(playerOneRef, {
             name: playerOneName,
             wins: playerOneWins,
@@ -324,20 +307,28 @@ $(document).ready(function () {
             losses: playerTwoLosses
         });
 
+        $(".playerChoice").removeClass("biggerIcon");
+        $(".playerChoice").removeClass("inactive");
+
+        update(ref(db), {
+            turn: "1"
+        });
+
     }
 
 
     // Creates modals based on the message passed to the function.
     let createsModals = function (message) {
-        $("#playZone").addClass("inactiveBackground");
-        $(".popup").removeClass("inactive");
+        $("#playZone").addClass("disabled");
         $(".popup").addClass("active");
         $("#popupContent").text(message);
-        $(".xMark").on("click", function() {
-        $(".popup").removeClass("active");
-        $(".popup").addClass("inactive");
-        $("#playZone").removeClass("inactiveBackground");
-        });
+
+        setTimeout(function() {
+            $(".popup").removeClass("active");
+            $("#playZone").removeClass("disabled");
+        }, 3000);
+
+
     };
 
     let gameRules = function() {
@@ -393,9 +384,6 @@ $(document).ready(function () {
                 losses: playerTwoLosses + 1
             });
         }   
-        set(ref(db), {
-            turn: "1"
-        });
     }
 
     let revealsChoices = function () {
@@ -432,25 +420,5 @@ $(document).ready(function () {
             }
         }
         
-    }
-
-    let resetsUI = function () {
-        if (playerId === "1") {
-            $(".uHands").removeClass("biggerIcon");
-            $(".uHands").removeClass("inactive");
-            $(".uHands").removeClass("removeEvent");
-            $(".xHands").removeClass("biggerIcon");
-            $(".xHands").removeClass("inactiveIcon");
-            $(".xHands").removeClass("inactive");
-            $("xIconContainer").addClass("disabled");
-        } else {
-            $(".xHands").removeClass("biggerIcon");
-            $(".xHands").removeClass("inactive");
-            $(".xHands").removeClass("removeEvent");
-            $(".uHands").removeClass("biggerIcon");
-            $(".uHands").removeClass("inactiveIcon");
-            $(".uHands").removeClass("inactive");
-
-        }
     }
 });
