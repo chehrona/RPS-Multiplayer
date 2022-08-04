@@ -47,10 +47,6 @@
     display: none;
   }
 
-  .inactiveBackground {
-    opacity: 0.45;
-  }
-
   .xMark {
     position: absolute;
     right: -18px;
@@ -67,6 +63,8 @@
   .iconsContainer .biggerIcon {
     font-size: 90px;
     pointer-events: none;
+    opacity: 1;
+    display: block;
   }
 
   .disabled {
