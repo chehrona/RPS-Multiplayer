@@ -45,9 +45,6 @@ $(document).ready(function () {
     let playerTwoLosses= 0;
     let spinnerIcon = '<i class="fa-solid fa-spinner fa-spin-pulse biggerIcon" id="spinner"></i>';
     let checkMark = '<i class="fa-solid fa-check biggerIcon" id="checkMark"></i>';
-    let rockIcon = '<i class="fa-solid fa-hand-fist rock biggerIcon id="rockIcon"></i>';
-    let paperIcon = '<i class="fa-solid fa-hand paper biggerIcon id="paperIcon"></i>';
-    let scissorsIcon = '<i class="fa-solid fa-hand-scissors scissor biggerIcon id="scissorsIcon"></i>';
 
 
     // Db values changed event listener.
@@ -378,7 +375,7 @@ $(document).ready(function () {
         if (playerOneChoice === playerTwoChoice) {
             console.log("Play again. Tie");
         } else if (playerOneChoice === "rock" && playerTwoChoice === "paper") {
-            createsModals(playerTwoName + "won");
+            createsModals(playerTwoName + " won");
             update(playerTwoRef, {
                 wins: playerTwoWins + 1
             });
@@ -388,7 +385,7 @@ $(document).ready(function () {
             });
 
         } else if (playerOneChoice === "rock" && playerTwoChoice === "scissors") {
-            createsModals(playerOneName + "won");
+            createsModals(playerOneName + " won");
             update(playerOneRef, {
                 wins: playerOneWins + 1
             });
@@ -397,7 +394,7 @@ $(document).ready(function () {
                 losses: playerTwoLosses + 1
             });
         } else if (playerOneChoice === "paper" && playerTwoChoice === "rock") {
-            createsModals(playerOneName + "won");
+            createsModals(playerOneName + " won");
             update(playerOneRef, {
                 wins: playerOneWins + 1
             });
@@ -406,7 +403,7 @@ $(document).ready(function () {
                 losses: playerTwoLosses + 1
             });
         } else if (playerOneChoice === "paper" && playerTwoChoice === "scissors") {
-            createsModals(playerTwoName + "won");
+            createsModals(playerTwoName + " won");
             update(playerTwoRef, {
                 wins: playerTwoWins + 1
             });
@@ -415,7 +412,7 @@ $(document).ready(function () {
                 losses: playerOneLosses + 1
             });
         } else if (playerOneChoice === "scissors" && playerTwoChoice === "rock") {
-            createsModals(playerTwoName + "won");
+            createsModals(playerTwoName + " won");
             update(playerTwoRef, {
                 wins: playerTwoWins + 1
             });
@@ -424,7 +421,7 @@ $(document).ready(function () {
                 losses: playerOneLosses + 1
             });
         } else if (playerOneChoice === "scissors" && playerTwoChoice === "paper") {
-            createsModals(playerOneName + "won");
+            createsModals(playerOneName + " won");
             update(playerOneRef, {
                 wins: playerOneWins + 1
             });
