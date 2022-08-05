@@ -70,10 +70,9 @@ $(document).ready(function () {
             playerOneName = snapshot.val()["1"].name;
             isPlayerOneConnected = true;
             $("#yourName").html(playerOneName);
-            // $("#opponentName").html("Joining...");
             $("#robotX").addClass("disabled");
             if (!isPlayerTwoConnected) {
-                $("#opponentName").html("Joining...");
+                $("#opponentName").html("Waiting...");
             }
         }
         
@@ -83,7 +82,7 @@ $(document).ready(function () {
             $("#opponentName").html(playerTwoName);
             $("#robotU").addClass("disabled");
             if (!isPlayerOneConnected) {
-                $("#yourName").html("Joining...");
+                $("#yourName").html("Waiting...");
             }
         } 
 
