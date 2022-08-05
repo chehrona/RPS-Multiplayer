@@ -45,6 +45,7 @@ $(document).ready(function () {
     let playerTwoLosses= 0;
     let spinnerIcon = '<i class="fa-solid fa-spinner fa-spin-pulse biggerIcon" id="spinner"></i>';
     let checkMark = '<i class="fa-solid fa-check biggerIcon" id="checkMark"></i>';
+    let paperPlane = '<i class="fa-solid fa-paper-plane disabled" id="paperPlane"></i>';
 
 
     // Db values changed event listener.
@@ -205,12 +206,24 @@ $(document).ready(function () {
 
         // If the player 1 slot is occupied, immediately put the entered name to the opponent screen to prevent manual selection.
         if (isPlayerOneConnected) {
+            // Activates the chat
+            // $("#messageBox").addClass("messageBoxBorder");
+            // $("#messageBox").removeAttr("disabled");
+            // $("#paperPlane").removeClass("disabled");
+            // $("#paperPlane").addClass("flickerPlane");
+
             $("#opponentName").html(playerName);
 
             playerId = "2";
             joinGame();
 
         } else if (isPlayerTwoConnected) {
+            // Activates the chat
+            // $("#messageBox").addClass("messageBoxBorder");
+            // $("#messageBox").removeAttr("disabled");
+            // $("#paperPlane").removeClass("disabled");
+            // $("#paperPlane").addClass("flickerPlane");
+
             $("#yourName").html(playerName);
             
             playerId = "1";
@@ -218,6 +231,12 @@ $(document).ready(function () {
         }
 
         if (isPlayerOneConnected && isPlayerTwoConnected) {
+            // Activates the chat
+            $("#messageBox").addClass("messageBoxBorder");
+            $("#messageBox").removeAttr("disabled");
+            $("#paperPlane").removeClass("disabled");
+            $("#paperPlane").addClass("flickerPlane");
+
             // Player 1 always starts first
             update(ref(db), {
                 turn: "1"
@@ -236,7 +255,7 @@ $(document).ready(function () {
 
     $("#start").on("click", function (e) {
         e.preventDefault();
-        
+
         playerName = $("#nameEnter").val().trim();
         playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1);
         if (playerName === "") {
@@ -247,17 +266,28 @@ $(document).ready(function () {
         // Bounce icon to indicate select player
         $(".playerIcon").addClass("highlightPlayerIcon");
 
-        $(this).val("");
-        $(this).blur();
+        $("#nameEnter").val("");
+        $("#nameEnter").blur();
 
         // If the player 1 slot is occupied, immediately put the entered name to the opponent screen to prevent manual selection.
         if (isPlayerOneConnected) {
+            // Activates the chat
+            // $("#messageBox").addClass("messageBoxBorder");
+            // $("#messageBox").removeAttr("disabled");
+            // $("#paperPlane").removeClass("disabled");
+            // $("#paperPlane").addClass("flickerPlane");
+
             $("#opponentName").html(playerName);
 
             playerId = "2";
             joinGame();
 
         } else if (isPlayerTwoConnected) {
+            // Activates the chat
+            // $("#messageBox").addClass("messageBoxBorder");
+            // $("#messageBox").removeAttr("disabled");
+            // $("#paperPlane").addClass("flickerPlane");
+
             $("#yourName").html(playerName);
             
             playerId = "1";
@@ -265,6 +295,12 @@ $(document).ready(function () {
         }
 
         if (isPlayerOneConnected && isPlayerTwoConnected) {
+            // Activates the chat
+            $("#messageBox").addClass("messageBoxBorder");
+            $("#messageBox").removeAttr("disabled");
+            $("#paperPlane").removeClass("disabled");
+            $("#paperPlane").addClass("flickerPlane");
+            
             // Player 1 always starts first
             update(ref(db), {
                 turn: "1"
@@ -303,6 +339,13 @@ $(document).ready(function () {
             createsModals("Please enter your name");
             return;
         }
+
+        // Activates the chat
+        $("#messageBox").addClass("messageBoxBorder");
+        $("#messageBox").attr('placeholder="Type a message"');
+        $("#messageBox").removeAttr("disabled");
+        $("#paperPlane").removeClass("disabled");
+        $("#paperPlane").addClass("flickerPlane");
 
         playerId = $(this).attr("data-id-player");
 
@@ -471,11 +514,14 @@ $(document).ready(function () {
     // Chat functionality
     $("#paperPlane").on("click", function (e) {
         e.preventDefault();
-        if (playerId === "1") {
-            push(ref(db), "chat/1", {
-                
-            })
-        }
+        console.log("made it");
+        let message = $("#messageBox").val();
+        console.log(message);
+        let chatRef = ref(db, "chat");
+        set(push(chatRef), {
+            playerId: playerId,
+            message: message
+        });
     });
         
 });
