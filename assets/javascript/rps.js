@@ -191,6 +191,7 @@ $(document).ready(function () {
         }
         
         playerName = $("#nameEnter").val().trim();
+        playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1);
         if (playerName === "") {
             createsModals("Please enter your name");
             return;
@@ -233,11 +234,11 @@ $(document).ready(function () {
         $("#nameEnter").attr("disabled", true);  
     });
 
-    $("#start").keypress(function (e) {
-        // Only accept 'enter' key
+    $("#start").on("click", function (e) {
         e.preventDefault();
         
         playerName = $("#nameEnter").val().trim();
+        playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1);
         if (playerName === "") {
             createsModals("Please enter your name");
             return;
