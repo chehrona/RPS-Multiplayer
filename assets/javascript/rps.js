@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js'
-import { getDatabase, ref, set, onValue, update, remove, onDisconnect } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js"
+import { getDatabase, ref, push, set, onValue, update, remove, onDisconnect } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js"
 
 const firebaseConfig = {
   apiKey: "AIzaSyCZrfcX2V7iJtWNDmyyU6lan6mmlS1o3Hw",
@@ -374,7 +374,7 @@ $(document).ready(function () {
 
     let gameRules = function() {
         if (playerOneChoice === playerTwoChoice) {
-            console.log("Play again. Tie");
+            createsModals("It is a tie");
         } else if (playerOneChoice === "rock" && playerTwoChoice === "paper") {
             createsModals(playerTwoName + " won");
             update(playerTwoRef, {
@@ -466,6 +466,15 @@ $(document).ready(function () {
                 $("#xScissor").addClass("biggerIcon");
             }
         }
-        
     }
+
+    // Chat functionality
+    $("#paperPlane").on("click", function (e) {
+        e.preventDefault();
+        if (playerId === "1") {
+            push(ref(db), "chat/1", {
+                
+            })
+        }
+        
 });
