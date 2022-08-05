@@ -22,10 +22,10 @@ const turnRef = ref(db, "turn");
 
 $(document).ready(function () {
     // Plays my dorky sound.
-    // $("<audio></audio>").attr({
-    //     'src':'assets/javascript/hello.wav',
-    //     'autoplay':'autoplay'
-    // }).appendTo("body");
+    $("<audio></audio>").attr({
+        'src':'assets/javascript/hello.wav',
+        'autoplay':'autoplay'
+    }).appendTo("body");
     
     // Declaring global variables.
     let isPlayerOneConnected = false;
@@ -189,7 +189,6 @@ $(document).ready(function () {
 
     // Player types name and presses enter key
     $("#nameEnter").keypress(function (e) {
-
         // Only accept 'enter' key
         if (e.keyCode != "13") {
             return;
@@ -238,6 +237,52 @@ $(document).ready(function () {
         $("#nameEnter").attr("disabled", true);  
     });
 
+    $("#start").keypress(function (e) {
+        // Only accept 'enter' key
+        e.preventDefault();
+        
+        playerName = $("#nameEnter").val().trim();
+        if (playerName === "") {
+            createsModals("Please enter your name");
+            return;
+        } 
+        
+        // Bounce icon to indicate select player
+        $(".playerIcon").addClass("highlightPlayerIcon");
+
+        $(this).val("");
+        $(this).blur();
+
+        // If the player 1 slot is occupied, immediately put the entered name to the opponent screen to prevent manual selection.
+        if (isPlayerOneConnected) {
+            $("#opponentName").html(playerName);
+
+            playerId = "2";
+            joinGame();
+
+        } else if (isPlayerTwoConnected) {
+            $("#yourName").html(playerName);
+            
+            playerId = "1";
+            joinGame();
+        }
+
+        if (isPlayerOneConnected && isPlayerTwoConnected) {
+            // Player 1 always starts first
+            update(ref(db), {
+                turn: "1"
+            });
+
+            // Remove turn when a player disconnects
+            onDisconnect(turnRef).remove();
+
+            // Disable avatar selectors to disabling joining again
+            $(".playerIcon").removeClass("highlightPlayerIcon");
+        }
+        //  Prevents entering another name.
+        $("#nameEnter").attr("disabled", true);  
+    });
+
     let joinGame = function() {
         // Save to db
         let playerRef = ref(db, "players/" + playerId);
@@ -251,7 +296,6 @@ $(document).ready(function () {
     }
 
     $(".playerIcon").on("click", function () {
-
         $(".playerIcon").removeClass("highlightPlayerIcon");
         
         // Prevents user updates if either of the player is connected.
@@ -335,6 +379,7 @@ $(document).ready(function () {
         if (playerOneChoice === playerTwoChoice) {
             console.log("Play again. Tie");
         } else if (playerOneChoice === "rock" && playerTwoChoice === "paper") {
+            createsModals(playerTwoName + "won");
             update(playerTwoRef, {
                 wins: playerTwoWins + 1
             });
@@ -344,6 +389,7 @@ $(document).ready(function () {
             });
 
         } else if (playerOneChoice === "rock" && playerTwoChoice === "scissors") {
+            createsModals(playerOneName + "won");
             update(playerOneRef, {
                 wins: playerOneWins + 1
             });
@@ -352,6 +398,7 @@ $(document).ready(function () {
                 losses: playerTwoLosses + 1
             });
         } else if (playerOneChoice === "paper" && playerTwoChoice === "rock") {
+            createsModals(playerOneName + "won");
             update(playerOneRef, {
                 wins: playerOneWins + 1
             });
@@ -360,6 +407,7 @@ $(document).ready(function () {
                 losses: playerTwoLosses + 1
             });
         } else if (playerOneChoice === "paper" && playerTwoChoice === "scissors") {
+            createsModals(playerTwoName + "won");
             update(playerTwoRef, {
                 wins: playerTwoWins + 1
             });
@@ -368,6 +416,7 @@ $(document).ready(function () {
                 losses: playerOneLosses + 1
             });
         } else if (playerOneChoice === "scissors" && playerTwoChoice === "rock") {
+            createsModals(playerTwoName + "won");
             update(playerTwoRef, {
                 wins: playerTwoWins + 1
             });
@@ -376,6 +425,7 @@ $(document).ready(function () {
                 losses: playerOneLosses + 1
             });
         } else if (playerOneChoice === "scissors" && playerTwoChoice === "paper") {
+            createsModals(playerOneName + "won");
             update(playerOneRef, {
                 wins: playerOneWins + 1
             });
