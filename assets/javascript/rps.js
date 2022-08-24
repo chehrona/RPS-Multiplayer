@@ -69,6 +69,7 @@ $(document).ready(function () {
             isPlayerOneConnected = true;
             $("#yourName").html(playerOneName);
             $("#robotX").addClass("disabled");
+
             if (!isPlayerTwoConnected) {
                 $("#opponentName").html("Waiting...");
             }
@@ -79,10 +80,19 @@ $(document).ready(function () {
             isPlayerTwoConnected = true;
             $("#opponentName").html(playerTwoName);
             $("#robotU").addClass("disabled");
+
             if (!isPlayerOneConnected) {
                 $("#yourName").html("Waiting...");
             }
         } 
+
+        if (isPlayerOneConnected && isPlayerTwoConnected) {
+            // Activates the chat
+            $("#messageBox").addClass("messageBoxBorder");
+            $("#messageBox").removeAttr("disabled");
+            $("#paperPlane").removeClass("disabled");
+            $("#paperPlane").addClass("flickerPlane");
+        }
 
         // Retrieves choice data for each player
         let firstPlayerChoice = snapshot.child("1/choice").exists();
@@ -206,24 +216,12 @@ $(document).ready(function () {
 
         // If the player 1 slot is occupied, immediately put the entered name to the opponent screen to prevent manual selection.
         if (isPlayerOneConnected) {
-            // Activates the chat
-            // $("#messageBox").addClass("messageBoxBorder");
-            // $("#messageBox").removeAttr("disabled");
-            // $("#paperPlane").removeClass("disabled");
-            // $("#paperPlane").addClass("flickerPlane");
-
             $("#opponentName").html(playerName);
 
             playerId = "2";
             joinGame();
 
         } else if (isPlayerTwoConnected) {
-            // Activates the chat
-            // $("#messageBox").addClass("messageBoxBorder");
-            // $("#messageBox").removeAttr("disabled");
-            // $("#paperPlane").removeClass("disabled");
-            // $("#paperPlane").addClass("flickerPlane");
-
             $("#yourName").html(playerName);
             
             playerId = "1";
@@ -271,23 +269,12 @@ $(document).ready(function () {
 
         // If the player 1 slot is occupied, immediately put the entered name to the opponent screen to prevent manual selection.
         if (isPlayerOneConnected) {
-            // Activates the chat
-            // $("#messageBox").addClass("messageBoxBorder");
-            // $("#messageBox").removeAttr("disabled");
-            // $("#paperPlane").removeClass("disabled");
-            // $("#paperPlane").addClass("flickerPlane");
-
             $("#opponentName").html(playerName);
 
             playerId = "2";
             joinGame();
 
         } else if (isPlayerTwoConnected) {
-            // Activates the chat
-            // $("#messageBox").addClass("messageBoxBorder");
-            // $("#messageBox").removeAttr("disabled");
-            // $("#paperPlane").addClass("flickerPlane");
-
             $("#yourName").html(playerName);
             
             playerId = "1";
@@ -295,12 +282,6 @@ $(document).ready(function () {
         }
 
         if (isPlayerOneConnected && isPlayerTwoConnected) {
-            // Activates the chat
-            $("#messageBox").addClass("messageBoxBorder");
-            $("#messageBox").removeAttr("disabled");
-            $("#paperPlane").removeClass("disabled");
-            $("#paperPlane").addClass("flickerPlane");
-            
             // Player 1 always starts first
             update(ref(db), {
                 turn: "1"
@@ -340,12 +321,6 @@ $(document).ready(function () {
             return;
         }
 
-        // Activates the chat
-        $("#messageBox").addClass("messageBoxBorder");
-        $("#messageBox").attr('placeholder="Type a message"');
-        $("#messageBox").removeAttr("disabled");
-        $("#paperPlane").removeClass("disabled");
-        $("#paperPlane").addClass("flickerPlane");
 
         playerId = $(this).attr("data-id-player");
 
