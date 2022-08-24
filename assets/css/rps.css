@@ -647,6 +647,7 @@ i {
   .bordersInanim {
     border: 8px double rgb(0, 255, 251);
     border-radius: 20px;
+    height: 85%;
   }
 
   .title h1 {
