@@ -18,6 +18,7 @@ const playersRef = ref(db, "players");
 const playerOneRef = ref(db, "players/1");
 const playerTwoRef = ref(db, "players/2");
 const turnRef = ref(db, "turn");
+let chatRef = ref(db, "chat");
 
 
 $(document).ready(function () {
@@ -56,6 +57,7 @@ $(document).ready(function () {
         if (dbData === null) {
             isPlayerOneConnected = false;
             isPlayerTwoConnected = false;
+            $("#messageBoard").empty();
             return;
         }
 
@@ -90,6 +92,7 @@ $(document).ready(function () {
             // Activates the chat
             $("#messageBox").addClass("messageBoxBorder");
             $("#messageBox").removeAttr("disabled");
+            $("#messageBox").attr("placeholder", "Type a message");
             $("#paperPlane").removeClass("disabled");
             $("#paperPlane").addClass("flickerPlane");
         }
@@ -240,8 +243,9 @@ $(document).ready(function () {
                 turn: "1"
             });
 
-            // Remove turn when a player disconnects
+            // Remove turn and chat history when a player disconnects
             onDisconnect(turnRef).remove();
+            onDisconnect(chatRef).remove();
 
             // Disable avatar selectors to disabling joining again
             $(".playerIcon").removeClass("highlightPlayerIcon");
@@ -289,6 +293,7 @@ $(document).ready(function () {
 
             // Remove turn when a player disconnects
             onDisconnect(turnRef).remove();
+            onDisconnect(chatRef).remove();
 
             // Disable avatar selectors to disabling joining again
             $(".playerIcon").removeClass("highlightPlayerIcon");
@@ -307,6 +312,7 @@ $(document).ready(function () {
         });
 
         onDisconnect(playerRef).remove();
+        onDisconnect(chatRef).remove();
     }
 
     $(".playerIcon").on("click", function () {
@@ -320,7 +326,6 @@ $(document).ready(function () {
             createsModals("Please enter your name");
             return;
         }
-
 
         playerId = $(this).attr("data-id-player");
 
@@ -487,16 +492,49 @@ $(document).ready(function () {
     }
 
     // Chat functionality
+    onValue(chatRef, function(snapshot) {
+        $("#messageBoard").empty();
+        let chatData = snapshot.val();
+        for (let key in chatData) {
+            if (chatData[key].playerId === "1") {
+                $("#messageBoard").append('<div class="iconTextWrap myIconTextWrap"><div class="iconBorder myIconBorder">' + 
+                        '<i class="fa-solid fa-user userIcons"></i></div><div class="commentBox myComment"><p>' + 
+                        chatData[key].message + '</p></div></div>');
+            } else {
+                $("#messageBoard").append('<div class="iconTextWrap botIconTextWrap"><div class="iconBorder botIconBorder">' + 
+                        '<i class="fa-solid fa-robot userIcons"></i></div><div class="commentBox otherComment"><p>' + 
+                        chatData[key].message + '</p></div></div>');
+            }
+        }
+    });
+
+
     $("#paperPlane").on("click", function (e) {
         e.preventDefault();
-        console.log("made it");
+
         let message = $("#messageBox").val();
-        console.log(message);
-        let chatRef = ref(db, "chat");
+ 
         set(push(chatRef), {
             playerId: playerId,
             message: message
         });
-    });
-        
+
+        $("#messageBox").val("");
+    }); 
+    
+    $("#messageBox").keypress(function(e) {
+        if (e.keyCode != '13') {
+            return;
+        }
+
+        let message = $(this).val();
+ 
+        set(push(chatRef), {
+            playerId: playerId,
+            message: message
+        });
+
+        $(this).val("");
+
+    })
 });

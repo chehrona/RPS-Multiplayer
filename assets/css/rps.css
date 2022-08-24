@@ -647,6 +647,7 @@ i {
   .bordersInanim {
     border: 8px double rgb(0, 255, 251);
     border-radius: 20px;
+    height: 410px;
   }
 
   .title h1 {
@@ -703,11 +704,19 @@ i {
 
   #messageBoard {
     display: block;
-    overflow: hidden;
+    overflow-y: scroll;
     position: relative;
     margin-left: 1%;
     margin-right: 1%;
+    height: 340px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
+
+  #messageBoard::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+} 
   
   .commentBox {
     background-color: rgb(48, 47, 47);
