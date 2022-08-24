@@ -38,13 +38,25 @@ body *:after {
 }
 
 /* Titles for the game, player names and wins */
-h1 {
-    color: rgb(253, 4, 154);
-    font-size: 100px;
-    font-family: clubSign;
-    text-shadow: 0px 0px 30px rgb(253, 4, 154);
-    text-align: center;
-    margin: 0;
+.title h1 {
+  color: rgb(253, 4, 154);
+  font-size: 70px;
+  font-family: clubSign;
+  text-shadow: 0px 0px 30px rgb(253, 4, 154);
+  text-align: center;
+  margin: 0;
+}
+
+#playZone h1 {
+  font-family: clubSign;
+}
+
+.wins h1 {
+  font-size: 42px;
+}
+
+.losses h1 {
+  font-size: 42px;
 }
 
 /* Input field for player name */
@@ -53,10 +65,11 @@ h1 {
   display: flex;
   align-items: center;
   margin-bottom: 3%;
+  margin-top: 5%;
   padding-top: 2px;
   padding-bottom: 2px;
-  margin-left: 35%;
-  margin-right: 35%;
+  margin-left: 10%;
+  margin-right: 10%;
   height: 48px;
   position: relative;
   border-radius: 10px;
@@ -109,17 +122,14 @@ h1 {
     display: inline-flex;
     margin-left: 2%;
     margin-right: 2%;
+    margin-top: 5%;
     width: 96%;
     min-height: 450px;
     justify-content: center;
 }
 
 #chatScreen {
-    width: 50%;
-    text-align: center;
-    margin-right: 0px;
-    margin-left: 1%;
-    margin-right: 1%;
+  display: none;
 }
 
 #messageBoard {
@@ -233,13 +243,13 @@ h1 {
 
 #yourScreen {
   text-align: center;
-  /* margin-right: 0px; */
   min-width: 22%;
 }
 
 #opponentScreen {
   text-align: center;
   min-width: 22%;
+  margin-left: 5%;
 }
 
 #titleBorder {
@@ -249,10 +259,10 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-left: 30%;
-    margin-right: 30%;
+    margin-left: 5%;
+    margin-right: 5%;
     margin-bottom: 1%;
-    margin-top: 1%;
+    margin-top: 5%;
     animation: shadowFade 10s infinite;
 }
 
@@ -281,7 +291,7 @@ h1 {
 
 i {
     background-color: transparent;
-    font-size: 70px;
+    font-size: 52px;
     margin-left: 3%;
     margin-right: 3%;
 }
@@ -315,7 +325,7 @@ i {
 }
 
 .names {
-    font-size: 80px;
+    font-size: 62px;
     color: white;
     text-shadow: 0px 0px 30px rgb(255, 255, 255);
     padding-top: 5%;
@@ -726,50 +736,66 @@ i {
     }
 
 
-@media screen and (max-width: 390px) {
+@media only screen and (min-device-width: 768px)  {
   #titleBorder {
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-top: 5%;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 1%;
   }
 
-  h1 {
-      font-size: 70px;
+  .title h1 {
+      font-size: 100px;
+  }
+
+  #playZone .wins {
+    font-size: 60px;
+    margin-top: 40px;
+  }
+
+  #playZone .losses {
+    font-size: 60px;
+    margin-top: 10px;
   }
 
   #playerName {
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 5%;
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 0%;
   }
 
   #chatScreen {
-    display: none;
+    display: block;
+    width: 50%;
+    text-align: center;
+    margin-right: 0px;
+    margin-left: 1%;
+    margin-right: 1%;
   }
 
   #opponentScreen {
-    margin-left: 5%;
+    margin-left: 0%;
   }
 
   .names {
-    font-size: 62px;
+    font-size: 90px;
+    margin-top: 5px;
   }
 
-  .scores h1 {
-    font-size: 42px;
+  .losses h1 {
+    font-size: 100px;
+    margin-top: 20px;
   }
 
-  .playerIcon {
-    font-size: 52px;
+  .bots {
+    font-size: 70px;
   }
 
   #playZone {
-    margin-top: 5%;
+    margin-top: 0%;
   }
 
   .playerChoice {
-    font-size: 52px;
-    margin-bottom: 5%;
+    font-size: 70px;
   }
+
 }
