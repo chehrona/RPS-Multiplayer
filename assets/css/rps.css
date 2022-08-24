@@ -128,13 +128,9 @@ body *:after {
   display: none;
 }
 
-#yourScreen {
-  margin-top: 5%;
-}
-
 #opponentScreen {
-  margin-top: 10%;
-  margin-bottom: 5%;
+  margin-top: 5%;
+  margin-bottom: 2%;
 }
 
 #titleBorder {
@@ -816,7 +812,6 @@ i {
 
   #yourScreen {
     min-width: 22%;
-    margin-top: 0%;
   } 
 
   #opponentScreen {
