@@ -520,6 +520,7 @@ $(document).ready(function () {
         });
 
         $("#messageBox").val("");
+        $("#messageBoard").scrollTop(1000000);
     }); 
     
     $("#messageBox").keypress(function(e) {
@@ -535,6 +536,6 @@ $(document).ready(function () {
         });
 
         $(this).val("");
-
+        $("#messageBoard").scrollTop(1000000);
     })
 });
