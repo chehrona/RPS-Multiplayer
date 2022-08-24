@@ -115,7 +115,7 @@ body *:after {
     display: block;
     margin-left: 2%;
     margin-right: 2%;
-    margin-top: 5%;
+    margin-top: 2%;
     min-height: 450px;
     justify-content: center;
 }
