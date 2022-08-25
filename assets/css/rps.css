@@ -79,6 +79,7 @@ body *:after {
     font-size: 72px;
     padding-left: 10px;
     padding-bottom: 0px;
+    padding-top: 0px;
     font-weight: bolder;
     font-family: clubSign;
     color: white;
