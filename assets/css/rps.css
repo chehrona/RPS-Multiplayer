@@ -61,7 +61,7 @@ body *:after {
   display: flex;
   align-items: center;
   margin-top: 40px;
-  padding-bottom: 0px;
+  padding-bottom: 7px;
   margin-left: 20%;
   margin-right: 20%;
   height: 90px;
@@ -72,12 +72,12 @@ body *:after {
 
 #nameEnter {
     width: 85%;
-    height: 90px;
+    height: 60px;
     margin-top: 2px;
     float: left;
     background-color: transparent;
     border: 0px transparent;
-    font-size: 72px;
+    font-size: 60px;
     padding-left: 10px;
     padding-bottom: 0px;
     padding-top: 0px;
