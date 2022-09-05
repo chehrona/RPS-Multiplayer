@@ -2,8 +2,8 @@ body {
     background-image: url("../images/background.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-color: black;
     box-sizing: border-box;
-    height: 100vh;
 }
 
 body *,
@@ -60,10 +60,9 @@ body *:after {
   border: 10px double rgb(0, 255, 251);
   display: flex;
   align-items: center;
+  margin: 0 auto;
   margin-top: 40px;
   padding-bottom: 7px;
-  margin-left: 20%;
-  margin-right: 20%;
   height: 90px;
   position: relative;
   border-radius: 20px;
@@ -143,15 +142,19 @@ body *:after {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin: 0 auto;
     margin-bottom: 1%;
     margin-top: 5%;
     animation: shadowFade 10s infinite;
+    width: 800px;
 }
 
 .title {
     margin-right: 30px;
+}
+
+.title h1 {
+  font-size: 150px;
 }
 
 .title:last-child {
@@ -639,12 +642,12 @@ i {
     }
 
 @media only screen and (min-device-width: 768px)  {
+
   #titleBorder {
-    margin-left: 30%;
-    margin-right: 30%;
     margin-top: 1%;
     border: 8px double rgb(0, 255, 251);
     border-radius: 20px;
+    width: 600px;
   }
 
   .bordersInanim {
@@ -677,8 +680,6 @@ i {
   }
 
   #playerName {
-      margin-left: 35%;
-      margin-right: 35%;
       margin-bottom: 3%;
       margin-top: 20px;
       height: 48px;
