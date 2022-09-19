@@ -798,6 +798,7 @@ i {
     background-color: transparent;
     font-size: 24px;
     float: right;
+    margin-right: 3px;
   }
   
   #paperPlane:hover {
@@ -810,6 +811,7 @@ i {
     font-size: 22px;
     color: white;
     margin-left: 0px;
+    margin-right: 3px;
     padding: 10px;
     float: left;
     font-family: "Lucida Console", "Courier New", monospace;
