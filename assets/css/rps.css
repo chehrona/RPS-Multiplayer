@@ -71,7 +71,7 @@ body *:after {
 }
 
 #nameEnter {
-    width: 78%;
+    width: 75%;
     height: 38px;
     float: left;
     background-color: transparent;
@@ -89,7 +89,7 @@ body *:after {
 #start {
     font-family: clubSign;
     font-size: 46px;
-    width: 17%;
+    width: 25%;
     color: rgb(4, 253, 16);
     font-weight: bolder;
     background-color: transparent;

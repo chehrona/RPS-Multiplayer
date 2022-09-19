@@ -391,8 +391,6 @@ $(document).ready(function () {
             $(".popup").removeClass("active");
             $("#playZone").removeClass("disabled");
         }, 3000);
-
-
     };
 
     let gameRules = function() {

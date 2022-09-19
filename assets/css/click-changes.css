@@ -23,18 +23,18 @@
     background: rgb(48, 47, 47);
     border: 5px double rgb(4, 253, 16);
     box-shadow: 0px 0px 20px rgb(4, 253, 16);
-    min-width: 20%;
-    min-height: 10%;
+    min-width: 70%;
+    min-height: 15%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-    margin-top: 10%;
+    margin-top: 50%;
     padding: 1%;
     color: white;
     border-radius: 10px;
     font-size: 32px;
     align-items: center;
-    text-align: center;
+    justify-content: center;
     font-family: "Lucida Console", "Courier New", monospace;
     opacity: 0;
     display: none;
@@ -105,3 +105,13 @@
     color:rgb(253, 4, 154);
     text-shadow: none;
   }
+
+@media only screen and (min-device-width: 768px)  {
+  .popup {
+    min-width: 30%;
+    min-height: 15%;
+    margin-top: 5%;
+  }
+}
+
+  
