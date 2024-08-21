@@ -174,10 +174,14 @@ $(document).ready(function () {
                 // Removes two other non-clicked icons
                 $(".uHands").addClass("inactive");
                 $(".xHands").addClass("inactive");
-                $("#xIconContainer").append(spinnerIcon);
+                if ($("#spinnerIcon").length === 0) {
+                    $("#xIconContainer").append(spinnerIcon);
+                }
             } else {
                 $(".uHands").addClass("inactive");
-                $("#uIconContainer").append(checkMark);
+                if ($("#checkMark").length === 0) {
+                    $("#uIconContainer").append(checkMark);
+                }
             } 
         }
 
@@ -379,6 +383,9 @@ $(document).ready(function () {
         update(ref(db), {
             turn: "1"
         });
+
+        $("#checkMark").remove();
+        $("#spinner").remove();
 
     }
 
