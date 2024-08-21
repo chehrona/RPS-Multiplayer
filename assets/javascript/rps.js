@@ -46,7 +46,6 @@ $(document).ready(function () {
     let playerTwoLosses= 0;
     let spinnerIcon = '<i class="fa-solid fa-spinner fa-spin-pulse biggerIcon" id="spinner"></i>';
     let checkMark = '<i class="fa-solid fa-check biggerIcon" id="checkMark"></i>';
-    let paperPlane = '<i class="fa-solid fa-paper-plane disabled" id="paperPlane"></i>';
 
 
     // Db values changed event listener.
