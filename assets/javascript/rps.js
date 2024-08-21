@@ -116,10 +116,12 @@ $(document).ready(function () {
         }
 
         // Retrieves wins and losses
-        playerOneWins = dbData["1"].wins;
-        playerTwoWins = dbData["2"].wins;
-        playerOneLosses = dbData["1"].losses;
-        playerTwoLosses = dbData["2"].losses;
+        if (dbData["1"].wins && dbData["1"].losses && dbData["2"].wins && dbData["2"].losses) {
+            playerOneWins = dbData["1"].wins;
+            playerTwoWins = dbData["2"].wins;
+            playerOneLosses = dbData["1"].losses;
+            playerTwoLosses = dbData["2"].losses;
+        }
 
         $("#uWinCount").html(playerOneWins);
         $("#uLossCount").html(playerOneLosses);
