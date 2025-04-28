@@ -1,3 +1,8 @@
+@font-face {
+  font-family: clubSign;
+  src: url("NightVibesFreeVersion-8MglA.otf") format("opentype");
+}
+
 body {
   background-image: url("../images/background.jpeg");
   background-repeat: no-repeat;
@@ -12,47 +17,63 @@ body *:after {
   box-sizing: border-box;
 }
 
-@font-face {
-  font-family: clubSign;
-  src: url("NightVibesFreeVersion-8MglA.otf") format("opentype");
+:root {
+  --pink: rgb(253, 4, 154);
+  --green: rgb(4, 253, 16);
+  --blue: rgb(0, 255, 251);
+  --white: rgb(255, 255, 255);
+  --grey: rgb(48, 47, 47);
 }
 
-.infoContainer {
+.i {
+  color: rgba(0, 0, 0, 0.181);
+}
+
+.body-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.instruction-container {
   display: flex;
   position: absolute;
-  background: rgb(48, 47, 47);
-  border: 5px double rgb(4, 253, 16);
-  box-shadow: 0px 0px 20px rgb(4, 253, 16);
+  background: var(--grey);
+  border: 5px double var(--green);
+  box-shadow: 0px 0px 20px var(--green);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
   padding: 16px;
-  border-radius: 10px;
   align-items: center;
   justify-content: center;
-  max-width: 800px;
+  max-width: 600px;
+  border-radius: 15px;
 }
 
-.infoText {
+.information-text {
   line-height: 30px;
   display: block;
-  color: white;
+  color: var(--white);
   font-size: 20px;
   font-family: "Lucida Console", "Courier New", monospace;
 }
 
-.infoIcon {
+.information-icon {
   position: absolute;
   top: 20px;
   right: 20px;
   width: 35px;
   height: 35px;
-  border: 5px double rgb(253, 4, 154);
-  box-shadow: 0px 0px 15px rgb(253, 4, 154);
+  border: 5px double var(--pink);
+  box-shadow: 0px 0px 15px var(--pink);
   border-radius: 50%;
   background: none;
-  color: white;
+  color: var(--white);
   cursor: pointer;
 }
 
@@ -69,38 +90,29 @@ body *:after {
 
 .closeButton i {
   font-size: 20px;
-  color: white;
+  color: var(--white);
 }
 
-.iconsContainer {
-  text-align: center;
-  color: rgb(48, 47, 47);
-  margin-top: 3%;
-}
-
-.icons {
-  color: rgb(48, 47, 47);
+.choice-icons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Blue borders for the titles and cards */
-.bordersAnim {
+.animated-border {
   animation: shadowFade 10s infinite;
   animation-delay: 4s;
-}
-
-.bordersInanim {
-  border: 8px double rgb(0, 255, 251);
-  border-radius: 12px;
-  padding-top: 1%;
-  display: block;
+  border: 8px double var(--blue);
+  border-radius: 15px;
 }
 
 /* Titles for the game, player names and wins */
 .title h1 {
-  color: rgb(253, 4, 154);
+  color: var(--pink);
   font-size: 70px;
   font-family: clubSign;
-  text-shadow: 0px 0px 30px rgb(253, 4, 154);
+  text-shadow: 0px 0px 30px var(--pink);
   text-align: center;
   margin: 0 auto;
   display: inline-flex;
@@ -112,7 +124,7 @@ body *:after {
 
 /* Input field for player name */
 #playerName {
-  border: 8px double rgb(0, 255, 251);
+  border: 8px double var(--blue);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -138,7 +150,7 @@ body *:after {
   padding-top: 0px;
   font-weight: bolder;
   font-family: clubSign;
-  color: white;
+  color: var(--white);
   margin-left: 5px;
 }
 
@@ -146,7 +158,7 @@ body *:after {
   font-family: clubSign;
   font-size: 46px;
   width: 25%;
-  color: rgb(4, 253, 16);
+  color: var(--green);
   font-weight: bolder;
   background-color: transparent;
   padding: 0px;
@@ -157,11 +169,11 @@ body *:after {
 }
 
 #start:hover {
-  text-shadow: 5px 5px 40px white;
+  text-shadow: 5px 5px 40px var(--white);
 }
 
 #nameEnter::placeholder {
-  color: white;
+  color: var(--white);
 }
 
 #nameEnter:hover::placeholder,
@@ -175,8 +187,14 @@ body *:after {
   justify-content: center;
 }
 
-.playerIcon {
-  font-size: 50px;
+.header-icon {
+  font-size: 70px;
+  -webkit-text-stroke: 2px rgb(147, 74, 255);
+  text-shadow: 0px 0px 20px rgb(147, 74, 255);
+  margin-bottom: 20px;
+  animation-name: bot-fade;
+  animation-duration: 10s;
+  animation-iteration-count: 4;
 }
 
 #chatScreen {
@@ -188,10 +206,7 @@ body *:after {
   margin-bottom: 2%;
 }
 
-#titleBorder {
-  padding: 1%;
-  border: 8px double rgb(0, 255, 251);
-  border-radius: 15px;
+.title-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -247,46 +262,38 @@ i {
 }
 
 .scissor {
-  -webkit-text-stroke: 2px rgb(4, 253, 16);
-  text-shadow: 0px 0px 20px rgb(4, 253, 16);
+  -webkit-text-stroke: 2px var(--green);
+  text-shadow: 0px 0px 20px var(--green);
 }
 
 .scissor:hover {
-  text-shadow: 0px 0px 50px rgb(4, 253, 16);
+  text-shadow: 0px 0px 50px var(--green);
 }
 
 .names {
+  font-family: clubSign;
   font-size: 70px;
-  color: white;
+  color: var(--white);
   text-shadow: 0px 0px 30px rgb(255, 255, 255);
   margin-top: 5px;
   margin-bottom: 10px;
 }
 
-.wins {
+.scores {
+  font-family: clubSign;
   font-size: 45px;
-  margin-top: 20px;
-  display: inline-flex;
-  color: white;
-  text-shadow: 0px 0px 30px white;
+  display: flex;
+  color: var(--white);
+  justify-content: center;
+  text-shadow: 0px 0px 30px var(--white);
 }
 
-.losses {
-  margin-top: 10px;
-  margin-bottom: 5%;
-  display: inline-flex;
-  font-size: 45px;
-  color: white;
-  text-shadow: 0px 0px 30px white;
-  animation-delay: 2s;
-}
-
-.playerChoice {
+.player-choice-icon {
   font-size: 80px;
   margin-right: 15px;
 }
 
-.playerChoice:last-child {
+.player-choice-icon:last-child {
   margin-right: 0px;
 }
 
@@ -310,19 +317,6 @@ i {
 
 #xLossCount {
   margin-left: 3%;
-}
-
-.bots {
-  -webkit-text-stroke: 2px rgb(147, 74, 255);
-  text-shadow: 0px 0px 20px rgb(147, 74, 255);
-  margin-bottom: 20px;
-  animation-name: bot-fade;
-  animation-duration: 10s;
-  animation-iteration-count: 4;
-}
-
-.bots:hover {
-  text-shadow: 0px 0px 50px white;
 }
 
 #robotM {
@@ -360,7 +354,7 @@ i {
 
 @keyframes shadowFade {
   50% {
-    box-shadow: 0px 0px 30px rgb(0, 255, 251);
+    box-shadow: 0px 0px 30px var(--blue);
   }
 }
 
@@ -373,14 +367,14 @@ i {
 @keyframes text-flicker-out-glow {
   0% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 153, 0.6),
       0 0 60px rgba(253, 4, 153, 0.45), 0 0 110px rgba(253, 4, 153, 0.25),
       0 0 100px rgba(253, 4, 153, 0.1);
   }
   13.9% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 154, 0.6),
       0 0 60px rgba(253, 4, 153, 0.45), 0 0 110px rgba(253, 4, 153, 0.25),
       0 0 100px rgba(253, 4, 153, 0.1);
@@ -397,7 +391,7 @@ i {
   }
   15% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 153, 0.55),
       0 0 60px rgba(253, 4, 153, 0.4), 0 0 110px rgba(253, 4, 153, 0.2),
       0 0 100px rgba(253, 4, 153, 0.1);
@@ -409,7 +403,7 @@ i {
   }
   16% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 153, 0.55),
       0 0 60px rgba(253, 4, 153, 0.4), 0 0 110px rgba(253, 4, 153, 0.2),
       0 0 100px rgba(253, 4, 153, 0.1);
@@ -421,7 +415,7 @@ i {
   }
   22.9% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 153, 0.55),
       0 0 60px rgba(253, 4, 153, 0.4), 0 0 110px rgba(253, 4, 153, 0.2),
       0 0 100px rgba(253, 4, 153, 0.1);
@@ -438,13 +432,13 @@ i {
   }
   25% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 153, 0.55),
       0 0 60px rgba(253, 4, 153, 0.35), 0 0 100px rgba(253, 4, 153, 0.1);
   }
   34.9% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 153, 0.55),
       0 0 60px rgba(253, 4, 153, 0.35), 0 0 100px rgba(253, 4, 153, 0.1);
   }
@@ -460,13 +454,13 @@ i {
   }
   40% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 153, 0.55),
       0 0 60px rgba(253, 4, 153, 0.35);
   }
   42.9% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 153, 0.55),
       0 0 60px rgba(253, 4, 153, 0.35);
   }
@@ -482,19 +476,19 @@ i {
   }
   45% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 153, 0.45),
       0 0 60px rgba(253, 4, 153, 0.25);
   }
   50% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 153, 0.45),
       0 0 60px rgba(253, 4, 153, 0.25);
   }
   54.9% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 153, 0.45),
       0 0 60px rgba(253, 4, 153, 0.25);
   }
@@ -510,13 +504,13 @@ i {
   }
   69.5% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 153, 0.45),
       0 0 60px rgba(253, 4, 153, 0.25);
   }
   69.9% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 153, 0.45),
       0 0 60px rgba(253, 4, 153, 0.25);
   }
@@ -532,7 +526,7 @@ i {
   }
   79.9% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: 0 0 30px rgba(253, 4, 153, 0.25);
   }
   80% {
@@ -547,7 +541,7 @@ i {
   }
   89.9% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: none;
   }
   90% {
@@ -557,7 +551,7 @@ i {
   }
   99.9% {
     opacity: 1;
-    color: rgb(253, 4, 154);
+    color: var(--pink);
     text-shadow: none;
   }
   100% {
@@ -568,14 +562,14 @@ i {
 @keyframes text-flick {
   0% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.6),
       0 0 60px rgba(255, 255, 255, 0.45), 0 0 110px rgba(255, 255, 255, 0.25),
       0 0 100px rgba(255, 255, 255, 0.1);
   }
   13.9% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.6),
       0 0 60px rgba(255, 255, 255, 0.45), 0 0 110px rgba(255, 255, 255, 0.25),
       0 0 100px rgba(255, 255, 255, 0.1);
@@ -592,14 +586,14 @@ i {
   }
   15% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.55),
       0 0 60px rgba(255, 255, 255, 0.4), 0 0 110px rgba(255, 255, 255, 0.2),
       0 0 100px rgba(255, 255, 255, 0.1);
   }
   22.9% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.55),
       0 0 60px rgba(255, 255, 255, 0.4), 0 0 110px rgba(255, 255, 255, 0.2),
       0 0 100px rgba(255, 255, 255, 0.1);
@@ -616,13 +610,13 @@ i {
   }
   25% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.55),
       0 0 60px rgba(255, 255, 255, 0.35), 0 0 100px rgba(255, 255, 255, 0.1);
   }
   34.9% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.55),
       0 0 60px rgba(255, 255, 255, 0.35), 0 0 100px rgba(255, 255, 255, 0.1);
   }
@@ -638,13 +632,13 @@ i {
   }
   40% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.55),
       0 0 60px rgba(255, 255, 255, 0.35);
   }
   42.9% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.55),
       0 0 60px rgba(255, 255, 255, 0.35);
   }
@@ -660,19 +654,19 @@ i {
   }
   45% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.45),
       0 0 60px rgba(255, 255, 255, 0.25);
   }
   50% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.45),
       0 0 60px rgba(255, 255, 255, 0.25);
   }
   54.9% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.45),
       0 0 60px rgba(255, 255, 255, 0.25);
   }
@@ -688,13 +682,13 @@ i {
   }
   69.5% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.45),
       0 0 60px rgba(255, 255, 255, 0.25);
   }
   69.9% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.45),
       0 0 60px rgba(255, 255, 255, 0.25);
   }
@@ -710,7 +704,7 @@ i {
   }
   79.9% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
   }
   80% {
@@ -725,7 +719,7 @@ i {
   }
   89.9% {
     opacity: 1;
-    color: white;
+    color: var(--white);
     text-shadow: none;
   }
   90% {
@@ -739,17 +733,11 @@ i {
 }
 
 @media only screen and (min-device-width: 768px) {
-  #titleBorder {
+  .title-container {
     margin-top: 1%;
-    border: 8px double rgb(0, 255, 251);
+    border: 8px double var(--blue);
     border-radius: 20px;
     width: 600px;
-  }
-
-  .bordersInanim {
-    border: 8px double rgb(0, 255, 251);
-    border-radius: 20px;
-    height: 83%;
   }
 
   .title h1 {
@@ -757,32 +745,23 @@ i {
   }
 
   #playZone {
-    display: inline-flex;
-    margin-top: 0%;
-    margin-bottom: 0%;
-    margin-left: 2%;
-    margin-right: 2%;
-    width: 96%;
+    display: flex;
+    padding: 0% 2%;
+    width: 100%;
+    justify-content: center;
   }
 
-  .wins {
-    font-size: 60px;
-    margin-top: 12%;
-  }
-
-  .losses {
-    margin-top: 2%;
-    font-size: 60px;
+  .scores {
+    font-size: 50px;
+    padding: 0px 20px;
   }
 
   #playerName {
     width: 380px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    margin: 20px 0px;
+    padding: 2px 0px;
     border-radius: 10px;
-    border: 4px double rgb(0, 255, 251);
+    border: 4px double var(--blue);
   }
 
   #nameEnter {
@@ -819,10 +798,10 @@ i {
   }
 
   .commentBox {
-    background-color: rgb(48, 47, 47);
+    background-color: var(--grey);
     font-size: 20px;
     padding: 5px;
-    color: white;
+    color: var(--white);
     text-align: left;
     width: fit-content;
     padding-left: 10px;
@@ -849,7 +828,7 @@ i {
     padding: 5px;
     width: 40px;
     height: 100%;
-    background-color: rgb(48, 47, 47);
+    background-color: var(--grey);
   }
 
   .myIconBorder {
@@ -858,8 +837,7 @@ i {
   }
 
   .userIcons {
-    color: rgb(48, 47, 47);
-    -webkit-text-stroke: 2px white;
+    -webkit-text-stroke: 2px var(--white);
     font-size: 20px;
     text-align: center;
   }
@@ -895,14 +873,14 @@ i {
   }
 
   #paperPlane:hover {
-    text-shadow: 0px 0px 20px white;
+    text-shadow: 0px 0px 20px var(--white);
   }
 
   #messageBox {
-    background-color: rgb(48, 47, 47);
+    background-color: var(--grey);
     width: 95%;
     font-size: 22px;
-    color: white;
+    color: var(--white);
     margin-left: 0px;
     margin-right: 3px;
     padding: 10px;
@@ -913,7 +891,7 @@ i {
   }
 
   #messageBox::placeholder {
-    color: white;
+    color: var(--white);
   }
 
   #messageBox:focus::placeholder {
@@ -932,20 +910,20 @@ i {
 
   .names {
     font-size: 90px;
-    margin-top: 5%;
-    margin-bottom: 10%;
+    padding: 10px 20px;
   }
 
   .bots {
     font-size: 70px;
   }
 
-  .playerChoice {
+  .player-choice-icon {
     font-size: 90px;
   }
 
   .playerScreen {
-    display: block;
+    display: flex;
+    flex-direction: column;
   }
 
   #robotU {

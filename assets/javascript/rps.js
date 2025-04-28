@@ -37,12 +37,12 @@ $(document).ready(function () {
   let checkMark = '<i class="fa-solid fa-check biggerIcon" id="checkMark"></i>';
 
   $(".closeButton").on("click", function () {
-    $(".infoContainer").addClass("close-infoContainer");
+    $(".instruction-container").addClass("close-instruction-container");
     $("#playerName").removeClass("disabled");
   });
 
-  $(".infoIcon").on("click", function () {
-    $(".infoContainer").removeClass("close-infoContainer");
+  $(".information-icon").on("click", function () {
+    $(".instruction-container").removeClass("close-instruction-container");
   });
 
   // Db values changed event listener.
@@ -123,8 +123,8 @@ $(document).ready(function () {
   onValue(turnRef, function (snapshot) {
     playerTurn = snapshot.val();
 
-    $("#uBorder").removeClass("bordersAnim");
-    $("#xBorder").removeClass("bordersAnim");
+    $("#uBorder").removeClass("animated-border");
+    $("#xBorder").removeClass("animated-border");
 
     if (playerTurn == "1") {
       // Removes highlights from the player 2 and adds it to player 1
@@ -164,7 +164,7 @@ $(document).ready(function () {
       } else {
         $(".uHands").addClass("inactive");
         if ($("#checkMark").length === 0) {
-          $("#uIconContainer").append(checkMark);
+          $("#self-choice-icons-container").append(checkMark);
         }
       }
     }
@@ -255,8 +255,8 @@ $(document).ready(function () {
     onDisconnect(chatRef).remove();
   };
 
-  $(".playerIcon").on("click", function () {
-    $(".playerIcon").removeClass("highlightPlayerIcon");
+  $(".header-icon").on("click", function () {
+    $(".header-icon").removeClass("highlightheader-icon");
 
     // Prevents user updates if either of the player is connected.
     if (isPlayerOneConnected || isPlayerTwoConnected) {
@@ -272,7 +272,7 @@ $(document).ready(function () {
     joinGame();
   });
 
-  $(".playerChoice").on("click", function () {
+  $(".player-choice-icon").on("click", function () {
     let choice = $(this).attr("data-choice");
 
     $(this).addClass("biggerIcon");
@@ -310,8 +310,8 @@ $(document).ready(function () {
       losses: playerTwoLosses,
     });
 
-    $(".playerChoice").removeClass("biggerIcon");
-    $(".playerChoice").removeClass("inactive");
+    $(".player-choice-icon").removeClass("biggerIcon");
+    $(".player-choice-icon").removeClass("inactive");
 
     update(ref(db), {
       turn: "1",
@@ -396,8 +396,8 @@ $(document).ready(function () {
   let revealsChoices = function () {
     // Removes turn borders and add back the animated borders
     $("#xBorder").removeClass("currentPlayer");
-    $("#uBorder").addClass("bordersAnim");
-    $("#xBorder").addClass("bordersAnim");
+    $("#uBorder").addClass("animated-border");
+    $("#xBorder").addClass("animated-border");
     if (playerId == "2") {
       // Waits before removing the check mark and adding the player 1's choice
       setInterval(function () {}, 200);
