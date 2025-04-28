@@ -1,43 +1,21 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js";
 import {
-  getDatabase,
-  ref,
-  push,
-  set,
+  db,
+  playerOneRef,
+  playerTwoRef,
+  turnRef,
+  chatRef,
+  playersRef,
+} from "./firebase.js";
+
+import {
   onValue,
+  set,
   update,
-  remove,
+  ref,
   onDisconnect,
 } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCZrfcX2V7iJtWNDmyyU6lan6mmlS1o3Hw",
-  authDomain: "multi-rps-cd56d.firebaseapp.com",
-  projectId: "multi-rps-cd56d",
-  databaseURL: "https://multi-rps-cd56d-default-rtdb.firebaseio.com/",
-  storageBucket: "multi-rps-cd56d.appspot.com",
-  messagingSenderId: "309281822897",
-  appId: "1:309281822897:web:81aa3e8458154811f36a90",
-  measurementId: "G-5L5YJBPDFD",
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const playersRef = ref(db, "players");
-const playerOneRef = ref(db, "players/1");
-const playerTwoRef = ref(db, "players/2");
-const turnRef = ref(db, "turn");
-let chatRef = ref(db, "chat");
-
 $(document).ready(function () {
-  // Plays my dorky sound.
-  $("<audio></audio>")
-    .attr({
-      src: "assets/javascript/hello.wav",
-      autoplay: "autoplay",
-    })
-    .appendTo("body");
-
   // Declaring global variables.
   let isPlayerOneConnected = false;
   let isPlayerTwoConnected = false;
@@ -57,6 +35,15 @@ $(document).ready(function () {
   let spinnerIcon =
     '<i class="fa-solid fa-spinner fa-spin-pulse biggerIcon" id="spinner"></i>';
   let checkMark = '<i class="fa-solid fa-check biggerIcon" id="checkMark"></i>';
+
+  $(".closeButton").on("click", function () {
+    $(".infoContainer").addClass("close-infoContainer");
+    $("#playerName").removeClass("disabled");
+  });
+
+  $(".infoIcon").on("click", function () {
+    $(".infoContainer").removeClass("close-infoContainer");
+  });
 
   // Db values changed event listener.
   // This function is called everytime players data changes.
@@ -78,7 +65,6 @@ $(document).ready(function () {
       playerOneName = snapshot.val()["1"].name;
       isPlayerOneConnected = true;
       $("#yourName").html(playerOneName);
-      $("#robotX").addClass("disabled");
 
       if (!isPlayerTwoConnected) {
         $("#opponentName").html("Waiting...");
@@ -89,7 +75,6 @@ $(document).ready(function () {
       playerTwoName = dbData["2"].name;
       isPlayerTwoConnected = true;
       $("#opponentName").html(playerTwoName);
-      $("#robotU").addClass("disabled");
 
       if (!isPlayerOneConnected) {
         $("#yourName").html("Waiting...");
@@ -146,9 +131,6 @@ $(document).ready(function () {
       $("#xBorder").removeClass("currentPlayer");
       $("#uBorder").addClass("currentPlayer");
 
-      $("#robotX").removeClass("iconPicked");
-      $("#robotU").addClass("iconPicked");
-
       $(".xHands").addClass("disabled");
       if (playerTurn === playerId) {
         // Highlight player 1 and enable buttons
@@ -161,9 +143,6 @@ $(document).ready(function () {
       // Removes highlights from the player 1 and adds it to player 2
       $("#uBorder").removeClass("currentPlayer");
       $("#xBorder").addClass("currentPlayer");
-
-      $("#robotU").removeClass("iconPicked");
-      $("#robotX").addClass("iconPicked");
 
       $(".uHands").addClass("disabled");
       if (playerTurn === playerId) {
@@ -214,12 +193,6 @@ $(document).ready(function () {
       return;
     }
 
-    // Bounce icon to indicate select player
-    $(".playerIcon").addClass("highlightPlayerIcon");
-
-    $(this).val("");
-    $(this).blur();
-
     // If the player 1 slot is occupied, immediately put the entered name to the opponent screen to prevent manual selection.
     if (!isPlayerOneConnected && !isPlayerTwoConnected) {
       $("#yourName").html(playerName);
@@ -248,12 +221,12 @@ $(document).ready(function () {
       // Remove turn and chat history when a player disconnects
       onDisconnect(turnRef).remove();
       onDisconnect(chatRef).remove();
-
-      // Disable avatar selectors to disabling joining again
-      $(".playerIcon").removeClass("highlightPlayerIcon");
     }
-    //  Prevents entering another name.
+
+    // Prevents entering another name.
+    $("#playerName").addClass("disabled");
     $("#nameEnter").attr("disabled", true);
+    $("#nameEnter").val("");
   };
 
   // Player types name and presses enter key
@@ -423,7 +396,6 @@ $(document).ready(function () {
   let revealsChoices = function () {
     // Removes turn borders and add back the animated borders
     $("#xBorder").removeClass("currentPlayer");
-    $("#robotX").removeClass("iconPicked");
     $("#uBorder").addClass("bordersAnim");
     $("#xBorder").addClass("bordersAnim");
     if (playerId == "2") {

@@ -1,106 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"  content="width=device-width, initial-scale=1, user-scalable=no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
 
     <title>RPS</title>
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="assets/css/rps.css">
-    <link rel="stylesheet" href="assets/css/click-changes.css">
-</head>
-<body>
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.png" />
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="assets/css/rps.css" />
+    <link rel="stylesheet" href="assets/css/click-changes.css" />
+  </head>
+  <body>
     <div id="titleBorder">
-        <div class="title">
-            <h1>R</h1>
-            <h1 id="tO" class="flickerLetter">o</h1>
-            <h1>ck</h1>
-        </div>
-        <div class="title">
-            <h1>Pa</h1>
-            <h1 id="tPe" class="flickerLetter">pe</h1>
-            <h1>r</h1>
-        </div>
-        <div class="title">
-            <h1 id="tS" class="flickerLetter">S</h1>
-            <h1>ci</h1>
-            <h1 id="tS" class="flickerLetter">s</h1>
-            <h1>sors</h1>
-        </div>
+      <div class="title">
+        <h1>R</h1>
+        <h1 id="tO" class="flickerLetter">o</h1>
+        <h1>ck</h1>
+      </div>
+      <div class="title">
+        <h1>Pa</h1>
+        <h1 id="tPe" class="flickerLetter">pe</h1>
+        <h1>r</h1>
+      </div>
+      <div class="title">
+        <h1 id="tS" class="flickerLetter">S</h1>
+        <h1>ci</h1>
+        <h1 id="tS" class="flickerLetter">s</h1>
+        <h1>sors</h1>
+      </div>
     </div>
-        <div class="bordersAnim bordersInanim" id="playerName">
-            <input id="nameEnter" placeholder="Your name" maxlength="10">
-            <button type="submit" id="start">Start</button>
-        </div> 
+    <button class="infoIcon">
+      <i class="fa-solid fa-info"></i>
+    </button>
+    <div class="bordersAnim bordersInanim disabled" id="playerName">
+      <input id="nameEnter" placeholder="Your name" maxlength="10" />
+      <button type="submit" id="start">Start</button>
+    </div>
+    <div class="infoContainer">
+      <button class="closeButton"><i class="fa-solid fa-close"></i></button>
+      <div class="infoText">
+        Hi! Welcome to RPS Multiplayer. Here’s how it works:
+        <li>You need two players to start a game.</li>
+        <li>
+          You can join from two different tabs in the same browser or from
+          separate devices.
+        </li>
+        <li>If either browser reloads, that player will be disconnected.</li>
+      </div>
+    </div>
     <div class="popup">
-        <p id="popupContent">message</p>
+      <p id="popupContent">message</p>
     </div>
     <div id="playZone">
-        <div id="yourScreen" class="playerScreen">
-            <i class="fa-solid fa-user icons bots playerIcon uIcons" id="robotU"  data-id-player="1"></i>
-            <div class="bordersAnim bordersInanim" id="uBorder">
-                <h1 id="yourName" class="names">Player 1</h1>
-                <div class="iconsContainer" id="uIconContainer">
-                    <i class="fa-solid fa-hand-fist icons playerChoice rock uIcons uHands disabled" id="uRock" data-choice="rock" ></i>
-                    <i class="fa-solid fa-hand icons playerChoice paper uIcons uHands disabled" id="uPaper" data-choice="paper"></i>
-                    <i class="fa-solid fa-hand-scissors playerChoice scissor uIcons uHands disabled" id="uScissor" data-choice="scissors"></i>
-                </div>
-                <div class="scores">
-                    <h1 class="wins">Wi</h1>
-                    <h1 class="wins flicker">n</h1>
-                    <h1 class="wins">s</h1>
-                    <h1 class="wins" id="uWinCount">0</h1>
-                </div>
-                <div class="scores">
-                    <h1 class="losses flicker">L</h1>
-                    <h1 class="losses">os</h1>
-                    <h1 class="losses flicker">s</h1>
-                    <h1 class="losses">es</h1>
-                    <h1 class="losses" id="uLossCount">0</h1>
-                </div>  
-            </div>
+      <div id="yourScreen" class="playerScreen">
+        <i
+          class="fa-solid fa-user icons bots playerIcon uIcons"
+          id="robotU"
+          data-id-player="1"
+        ></i>
+        <div class="bordersAnim bordersInanim" id="uBorder">
+          <h1 id="yourName" class="names">Player 1</h1>
+          <div class="iconsContainer" id="uIconContainer">
+            <i
+              class="fa-solid fa-hand-fist icons playerChoice rock uIcons uHands disabled"
+              id="uRock"
+              data-choice="rock"
+            ></i>
+            <i
+              class="fa-solid fa-hand icons playerChoice paper uIcons uHands disabled"
+              id="uPaper"
+              data-choice="paper"
+            ></i>
+            <i
+              class="fa-solid fa-hand-peace playerChoice scissor uIcons uHands disabled"
+              id="uScissor"
+              data-choice="scissors"
+            ></i>
+          </div>
+          <div class="scores">
+            <h1 class="wins">Wi</h1>
+            <h1 class="wins flicker">n</h1>
+            <h1 class="wins">s</h1>
+            <h1 class="wins" id="uWinCount">0</h1>
+          </div>
+          <div class="scores">
+            <h1 class="losses flicker">L</h1>
+            <h1 class="losses">os</h1>
+            <h1 class="losses flicker">s</h1>
+            <h1 class="losses">es</h1>
+            <h1 class="losses" id="uLossCount">0</h1>
+          </div>
         </div>
-    <div id="chatScreen">
+      </div>
+      <div id="chatScreen">
         <i class="fa-solid fa-message icons bots" id="robotM"></i>
-        <div class="bordersAnim bordersInanim"> 
-            <div id="messageBoard"></div>    
-            <div id="messageSender">
-                <input id="messageBox" disabled>
-                <i class="fa-solid fa-paper-plane disabled" id="paperPlane"></i>
-            </div>
+        <div class="bordersAnim bordersInanim">
+          <div id="messageBoard"></div>
+          <div id="messageSender">
+            <input id="messageBox" disabled />
+            <i class="fa-solid fa-paper-plane disabled" id="paperPlane"></i>
+          </div>
         </div>
-    </div>
-    
-    <div id="opponentScreen" class="playerScreen"> 
-        <i class="fa-solid fa-user-tie icons bots playerIcon xIcons" id="robotX" data-id-player="2"></i>
-        <div class="bordersAnim bordersInanim " id="xBorder">
-            <h1 id="opponentName" class="names">Player 2</h1>
-        <div class="iconsContainer" id="xIconContainer">
-            <i class="fa-solid fa-hand-fist icons playerChoice rock xHands xIcons disabled" id="xRock" data-choice="rock"></i>
-            <i class="fa-solid fa-hand icons playerChoice paper xIcons xHands disabled" id="xPaper" data-choice="paper"></i>
-            <i class="fa-solid fa-hand-scissors playerChoice scissor xHands xIcons disabled" id="xScissor" data-choice="scissors"></i>
-        </div>
-        <div>
+      </div>
+
+      <div id="opponentScreen" class="playerScreen">
+        <i
+          class="fa-solid fa-user-tie icons bots playerIcon xIcons"
+          id="robotX"
+          data-id-player="2"
+        ></i>
+        <div class="bordersAnim bordersInanim" id="xBorder">
+          <h1 id="opponentName" class="names">Player 2</h1>
+          <div class="iconsContainer" id="xIconContainer">
+            <i
+              class="fa-solid fa-hand-fist icons playerChoice rock xHands xIcons disabled"
+              id="xRock"
+              data-choice="rock"
+            ></i>
+            <i
+              class="fa-solid fa-hand icons playerChoice paper xIcons xHands disabled"
+              id="xPaper"
+              data-choice="paper"
+            ></i>
+            <i
+              class="fa-solid fa-hand-peace playerChoice scissor xHands xIcons disabled"
+              id="xScissor"
+              data-choice="scissors"
+            ></i>
+          </div>
+          <div>
             <div class="scores">
-                <h1 class="wins flicker">W</h1>
-                <h1 class="wins">i</h1>
-                <h1 class="wins flicker">n</h1>
-                <h1 class="wins">s</h1>
-                <h1 class="wins" id="xWinCount">0</h1>
+              <h1 class="wins flicker">W</h1>
+              <h1 class="wins">i</h1>
+              <h1 class="wins flicker">n</h1>
+              <h1 class="wins">s</h1>
+              <h1 class="wins" id="xWinCount">0</h1>
             </div>
             <div class="scores">
-                <h1 class="losses">L</h1>
-                <h1 class="losses flicker">os</h1>
-                <h1 class="losses">ses</h1>
-                <h1 class="losses" id="xLossCount">0</h1>
-            </div>  
-        </div>   
+              <h1 class="losses">L</h1>
+              <h1 class="losses flicker">os</h1>
+              <h1 class="losses">ses</h1>
+              <h1 class="losses" id="xLossCount">0</h1>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
-    </div>  
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="assets/javascript/firebase.js"></script>
     <script type="module" src="assets/javascript/rps.js"></script>
-</body>
+  </body>
 </html>
