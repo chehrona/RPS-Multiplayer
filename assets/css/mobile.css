@@ -54,4 +54,12 @@
   .player-choice-icon {
     font-size: 90px;
   }
+
+  #player-name-input-field {
+    font-size: 40px;
+  }
+
+  #start {
+    font-size: 40px;
+  }
 }
