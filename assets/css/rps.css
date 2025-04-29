@@ -34,6 +34,7 @@ body *:after {
   --title: 90px;
   --subtitle: 60px;
   --body: 45px;
+  --info: 22px;
 }
 
 /* General styles */
@@ -291,7 +292,7 @@ body *:after {
 }
 
 .flicker {
-  animation-name: text-flick;
+  animation-name: white-text-flick;
   animation-duration: 30s;
   animation-iteration-count: infinite;
 }
@@ -326,6 +327,108 @@ body *:after {
   border: 8px double var(--blue);
   border-radius: 15px;
   height: 100%;
+  padding: 10px;
+}
+
+#message-input-field-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+}
+
+#message-input-field {
+  width: 100%;
+  height: 100%;
+  font-size: var(--info);
+  color: var(--white);
+  margin-right: 3px;
+  padding: 10px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  background-color: var(--grey);
+}
+
+#message-input-field::placeholder {
+  color: var(--white);
+  opacity: 0.8;
+}
+
+#messageBoard {
+  display: block;
+  overflow-y: scroll;
+  position: relative;
+  height: 370px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#messageBoard::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.message-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 3px;
+  width: 35px;
+  height: 35px;
+  background-color: var(--grey);
+}
+
+.self-message-wrapper {
+  border: 2px solid var(--purple);
+  box-shadow: 0px 0px 10px var(--purple);
+}
+
+.opponent-message-wrapper {
+  border: 2px solid var(--pink);
+  box-shadow: 0px 0px 10px var(--pink);
+}
+
+.message-user-icon {
+  -webkit-text-stroke: 2px var(--white);
+  font-size: 18px;
+  text-align: center;
+}
+
+.message-text-wrapper {
+  background-color: var(--grey);
+  font-size: var(--info);
+  color: var(--white);
+  padding: 5px 10px;
+  height: 35px;
+  width: fit-content;
+  border-radius: 20px;
+  resize: horizontal;
+  display: flex;
+  align-items: center;
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.message-row-container {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.self-message-row-container {
+  justify-content: flex-end;
+}
+
+#message-plane-icon {
+  background-color: transparent;
+  font-size: 24px;
+  float: right;
+  margin-right: 3px;
+}
+
+#message-plane-icon:hover {
+  text-shadow: 0px 0px 20px var(--white);
 }
 
 @keyframes shadowFade {
@@ -529,7 +632,7 @@ body *:after {
   }
 }
 
-@keyframes text-flick {
+@keyframes white-text-flick {
   0% {
     opacity: 1;
     color: var(--white);
@@ -699,120 +802,5 @@ body *:after {
   }
   100% {
     opacity: 1;
-  }
-}
-
-@media only screen and (min-device-width: 768px) {
-  #messageBoard {
-    display: block;
-    overflow-y: scroll;
-    position: relative;
-    margin-left: 1%;
-    margin-right: 1%;
-    height: 370px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  #messageBoard::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-
-  .commentBox {
-    background-color: var(--grey);
-    font-size: 20px;
-    padding: 5px;
-    color: var(--white);
-    text-align: left;
-    width: fit-content;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 20px;
-    font-family: "Lucida Console", "Courier New", monospace;
-    resize: horizontal;
-    align-items: center;
-  }
-
-  .iconTextWrap {
-    display: flex;
-    margin-bottom: 10px;
-  }
-
-  .myIconTextWrap {
-    justify-content: flex-end;
-  }
-
-  .iconBorder {
-    text-align: center;
-    border-radius: 50%;
-    margin-right: 3px;
-    padding: 5px;
-    width: 40px;
-    height: 100%;
-    background-color: var(--grey);
-  }
-
-  .myIconBorder {
-    border: 2px solid var(--yellow);
-    box-shadow: 0px 0px 10px var(--yellow);
-  }
-
-  .userIcons {
-    -webkit-text-stroke: 2px var(--white);
-    font-size: 20px;
-    text-align: center;
-  }
-
-  .botIconBorder {
-    border: 2px solid var(--orange);
-    box-shadow: 0px 0px 10px var(--orange);
-  }
-
-  .myComment {
-    border: 2px solid var(--yellow);
-    box-shadow: 0px 0px 10px var(--yellow);
-  }
-
-  .otherComment {
-    border: 2px solid var(--orange);
-    box-shadow: 0px 0px 10px var(--orange);
-  }
-
-  #messageSender {
-    display: flex;
-    align-items: center;
-    position: relative;
-    margin-right: 0px;
-    margin-left: 1%;
-  }
-
-  #paperPlane {
-    background-color: transparent;
-    font-size: 24px;
-    float: right;
-    margin-right: 3px;
-  }
-
-  #paperPlane:hover {
-    text-shadow: 0px 0px 20px var(--white);
-  }
-
-  #messageBox {
-    background-color: var(--grey);
-    width: 95%;
-    font-size: 22px;
-    color: var(--white);
-    margin-left: 0px;
-    margin-right: 3px;
-    padding: 10px;
-    float: left;
-    font-family: "Lucida Console", "Courier New", monospace;
-    border-radius: 20px;
-    height: 36px;
-  }
-
-  #messageBox::placeholder {
-    color: var(--white);
   }
 }

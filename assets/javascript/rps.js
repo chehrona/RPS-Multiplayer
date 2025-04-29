@@ -12,6 +12,7 @@ import {
   set,
   update,
   ref,
+  push,
   onDisconnect,
 } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js";
 
@@ -33,8 +34,9 @@ $(document).ready(function () {
   let playerOneLosses = 0;
   let playerTwoLosses = 0;
   let spinnerIcon =
-    '<i class="fa-solid fa-spinner fa-spin-pulse biggerIcon" id="spinner"></i>';
-  let checkMark = '<i class="fa-solid fa-check biggerIcon" id="checkMark"></i>';
+    '<i class="fa-solid fa-spinner fa-spin-pulse selected-icon player-choice-icon feedback-icon" id="spinner"></i>';
+  let checkMark =
+    '<i class="fa-solid fa-check selected-icon player-choice-icon feedback-icon" id="checkMark"></i>';
 
   $(".closeButton").on("click", function () {
     $(".instruction-container").addClass("close-instruction-container");
@@ -83,11 +85,11 @@ $(document).ready(function () {
 
     if (isPlayerOneConnected && isPlayerTwoConnected) {
       // Activates the chat
-      $("#messageBox").addClass("messageBoxBorder");
-      $("#messageBox").removeAttr("disabled");
-      $("#messageBox").attr("placeholder", "Type a message");
-      $("#paperPlane").removeClass("disabled");
-      $("#paperPlane").addClass("flickerPlane");
+      $("#message-input-field").addClass("message-input-fieldBorder");
+      $("#message-input-field").removeAttr("disabled");
+      $("#message-input-field").attr("placeholder", "Type a message");
+      $("#message-plane-icon").removeClass("disabled");
+      $("#message-plane-icon").addClass("flickerPlane");
     }
 
     // Retrieves choice data for each player
@@ -124,11 +126,11 @@ $(document).ready(function () {
     playerTurn = snapshot.val();
 
     $("#self-player-wrapper").removeClass("animated-border");
-    $("#xBorder").removeClass("animated-border");
+    $("#opponent-player-wrapper").removeClass("animated-border");
 
     if (playerTurn == "1") {
       // Removes highlights from the player 2 and adds it to player 1
-      $("#xBorder").removeClass("currentPlayer");
+      $("#opponent-player-wrapper").removeClass("currentPlayer");
       $("#self-player-wrapper").addClass("currentPlayer");
 
       $(".xHands").addClass("disabled");
@@ -142,7 +144,7 @@ $(document).ready(function () {
     } else if (playerTurn == "2") {
       // Removes highlights from the player 1 and adds it to player 2
       $("#self-player-wrapper").removeClass("currentPlayer");
-      $("#xBorder").addClass("currentPlayer");
+      $("#opponent-player-wrapper").addClass("currentPlayer");
 
       $(".uHands").addClass("disabled");
       if (playerTurn === playerId) {
@@ -158,7 +160,7 @@ $(document).ready(function () {
         // Removes two other non-clicked icons
         $(".uHands").addClass("inactive");
         $(".xHands").addClass("inactive");
-        if ($("#spinnerIcon").length === 0) {
+        if ($("#spinner-icon").length === 0) {
           $("#xIconContainer").append(spinnerIcon);
         }
       } else {
@@ -208,10 +210,10 @@ $(document).ready(function () {
 
     if (isPlayerOneConnected && isPlayerTwoConnected) {
       // Activates the chat
-      $("#messageBox").addClass("messageBoxBorder");
-      $("#messageBox").removeAttr("disabled");
-      $("#paperPlane").removeClass("disabled");
-      $("#paperPlane").addClass("flickerPlane");
+      $("#message-input-field").addClass("message-input-fieldBorder");
+      $("#message-input-field").removeAttr("disabled");
+      $("#message-plane-icon").removeClass("disabled");
+      $("#message-plane-icon").addClass("flickerPlane");
 
       // Player 1 always starts first
       update(ref(db), {
@@ -258,7 +260,7 @@ $(document).ready(function () {
   $(".player-choice-icon").on("click", function () {
     let choice = $(this).attr("data-choice");
 
-    $(this).addClass("biggerIcon");
+    $(this).addClass("selected-icon");
 
     // Player 1 always makes first choice
     if (playerTurn == "1") {
@@ -293,7 +295,7 @@ $(document).ready(function () {
       losses: playerTwoLosses,
     });
 
-    $(".player-choice-icon").removeClass("biggerIcon");
+    $(".player-choice-icon").removeClass("selected-icon");
     $(".player-choice-icon").removeClass("inactive");
 
     update(ref(db), {
@@ -378,34 +380,34 @@ $(document).ready(function () {
 
   let revealsChoices = function () {
     // Removes turn borders and add back the animated borders
-    $("#xBorder").removeClass("currentPlayer");
+    $("#opponent-player-wrapper").removeClass("currentPlayer");
     $("#self-player-wrapper").addClass("animated-border");
-    $("#xBorder").addClass("animated-border");
+    $("#opponent-player-wrapper").addClass("animated-border");
     if (playerId == "2") {
       // Waits before removing the check mark and adding the player 1's choice
       setInterval(function () {}, 200);
       $("#checkMark").remove();
       if (playerOneChoice === "rock") {
         $("#uRock").removeClass("inactive");
-        $("#uRock").addClass("biggerIcon");
+        $("#uRock").addClass("selected-icon");
       } else if (playerOneChoice === "paper") {
         $("#uPaper").removeClass("inactive");
-        $("#uPaper").addClass("biggerIcon");
+        $("#uPaper").addClass("selected-icon");
       } else {
         $("#uScissor").removeClass("inactive");
-        $("#uScissor").addClass("biggerIcon");
+        $("#uScissor").addClass("selected-icon");
       }
     } else if (playerId == "1") {
       $("#spinner").remove();
       if (playerTwoChoice === "rock") {
         $("#xRock").removeClass("inactive");
-        $("#xRock").addClass("biggerIcon");
+        $("#xRock").addClass("selected-icon");
       } else if (playerTwoChoice === "paper") {
         $("#xPaper").removeClass("inactive");
-        $("#xPaper").addClass("biggerIcon");
+        $("#xPaper").addClass("selected-icon");
       } else {
         $("#xScissor").removeClass("inactive");
-        $("#xScissor").addClass("biggerIcon");
+        $("#xScissor").addClass("selected-icon");
       }
     }
   };
@@ -417,15 +419,15 @@ $(document).ready(function () {
     for (let key in chatData) {
       if (chatData[key].playerId === "1") {
         $("#messageBoard").append(
-          '<div class="iconTextWrap myIconTextWrap"><div class="iconBorder myIconBorder">' +
-            '<i class="fa-solid fa-user userIcons"></i></div><div class="commentBox myComment"><p>' +
+          '<div class="message-row-container self-message-row-container"><div class="message-icon-wrapper self-message-wrapper">' +
+            '<i class="fa-solid fa-user message-user-icon"></i></div><div class="message-text-wrapper self-message-wrapper"><p>' +
             chatData[key].message +
             "</p></div></div>"
         );
       } else {
         $("#messageBoard").append(
-          '<div class="iconTextWrap botIconTextWrap"><div class="iconBorder botIconBorder">' +
-            '<i class="fa-solid fa-robot userIcons"></i></div><div class="commentBox otherComment"><p>' +
+          '<div class="message-row-container"><div class="message-icon-wrapper opponent-message-wrapper">' +
+            '<i class="fa-solid fa-user-tie message-user-icon"></i></div><div class="message-text-wrapper opponent-message-wrapper"><p>' +
             chatData[key].message +
             "</p></div></div>"
         );
@@ -433,21 +435,21 @@ $(document).ready(function () {
     }
   });
 
-  $("#paperPlane").on("click", function (e) {
+  $("#message-plane-icon").on("click", function (e) {
     e.preventDefault();
 
-    let message = $("#messageBox").val();
+    let message = $("#message-input-field").val();
 
     set(push(chatRef), {
       playerId: playerId,
       message: message,
     });
 
-    $("#messageBox").val("");
+    $("#message-input-field").val("");
     $("#messageBoard").scrollTop(1000000);
   });
 
-  $("#messageBox").keypress(function (e) {
+  $("#message-input-field").keypress(function (e) {
     if (e.keyCode != "13") {
       return;
     }
