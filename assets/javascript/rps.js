@@ -38,6 +38,12 @@ $(document).ready(function () {
   let checkMark =
     '<i class="fa-solid fa-check selected-icon player-choice-icon feedback-icon" id="checkMark"></i>';
 
+  const wasInstructionShown = localStorage.getItem("repeat_user");
+
+  if (!wasInstructionShown) {
+    $(".instruction-container").removeClass("close-instruction-container");
+  }
+
   // Db values changed event listener.
   // This function is called everytime players data changes.
   onValue(playersRef, function (snapshot) {
@@ -205,6 +211,8 @@ $(document).ready(function () {
   });
 
   $(".closeButton").on("click", function () {
+    localStorage.setItem("repeat_user", true);
+
     $(".instruction-container").addClass("close-instruction-container");
     $("#player-name-input-container").removeClass("disabled");
   });
