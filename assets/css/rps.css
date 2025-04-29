@@ -305,19 +305,19 @@ body *:after {
   animation-iteration-count: infinite;
 }
 
-#uWinCount {
+#self-win-counter {
   margin-left: 5px;
 }
 
-#xWinCount {
+#opponent-win-counter {
   margin-left: 5px;
 }
 
-#uLossCount {
+#self-loss-counter {
   margin-left: 5px;
 }
 
-#xLossCount {
+#opponent-loss-counter {
   margin-left: 5px;
 }
 

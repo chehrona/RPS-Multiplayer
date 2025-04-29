@@ -114,10 +114,10 @@ $(document).ready(function () {
     playerOneLosses = dbData["1"].losses;
     playerTwoLosses = dbData["2"].losses;
 
-    $("#uWinCount").html(playerOneWins);
-    $("#uLossCount").html(playerOneLosses);
-    $("#xWinCount").html(playerTwoWins);
-    $("#xLossCount").html(playerTwoLosses);
+    $("#self-win-counter").html(playerOneWins);
+    $("#self-loss-counter").html(playerOneLosses);
+    $("#opponent-win-counter").html(playerTwoWins);
+    $("#opponent-loss-counter").html(playerTwoLosses);
   });
 
   onValue(turnRef, function (snapshot) {
