@@ -46,6 +46,8 @@ $(document).ready(function () {
     if (dbData === null) {
       isPlayerOneConnected = false;
       isPlayerTwoConnected = false;
+      playerOneName = "";
+      playerTwoName = "";
       $("#messageBoard").empty();
       return;
     }
