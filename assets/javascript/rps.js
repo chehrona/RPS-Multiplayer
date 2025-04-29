@@ -85,7 +85,7 @@ $(document).ready(function () {
 
     if (isPlayerOneConnected && isPlayerTwoConnected) {
       // Activates the chat
-      $("#message-input-field").addClass("message-input-fieldBorder");
+      $("#message-input-field").addClass("message-input-field-border");
       $("#message-input-field").removeAttr("disabled");
       $("#message-input-field").attr("placeholder", "Type a message");
       $("#message-plane-icon").removeClass("disabled");
@@ -130,27 +130,27 @@ $(document).ready(function () {
 
     if (playerTurn == "1") {
       // Removes highlights from the player 2 and adds it to player 1
-      $("#opponent-player-wrapper").removeClass("currentPlayer");
-      $("#self-player-wrapper").addClass("currentPlayer");
+      $("#opponent-player-wrapper").removeClass("current-player-wrapper");
+      $("#self-player-wrapper").addClass("current-player-wrapper");
 
-      $(".xHands").addClass("disabled");
+      $(".opponent-choice-icon").addClass("disabled");
       if (playerTurn === playerId) {
         // Highlight player 1 and enable buttons
-        $(".uHands").removeClass("disabled");
+        $(".self-choice-icon").removeClass("disabled");
       } else {
         // Highlight player 1 and disable buttons
-        $(".uHands").addClass("disabled");
+        $(".self-choice-icon").addClass("disabled");
       }
     } else if (playerTurn == "2") {
       // Removes highlights from the player 1 and adds it to player 2
-      $("#self-player-wrapper").removeClass("currentPlayer");
-      $("#opponent-player-wrapper").addClass("currentPlayer");
+      $("#self-player-wrapper").removeClass("current-player-wrapper");
+      $("#opponent-player-wrapper").addClass("current-player-wrapper");
 
-      $(".uHands").addClass("disabled");
+      $(".self-choice-icon").addClass("disabled");
       if (playerTurn === playerId) {
-        $(".xHands").removeClass("disabled");
+        $(".opponent-choice-icon").removeClass("disabled");
       } else {
-        $(".xHands").addClass("disabled");
+        $(".opponent-choice-icon").addClass("disabled");
       }
     }
 
@@ -158,13 +158,13 @@ $(document).ready(function () {
     if (hasPlayerOneChosen && !hasPlayerTwoChosen) {
       if (playerId == "1") {
         // Removes two other non-clicked icons
-        $(".uHands").addClass("inactive");
-        $(".xHands").addClass("inactive");
+        $(".self-choice-icon").addClass("inactive");
+        $(".opponent-choice-icon").addClass("inactive");
         if ($("#spinner-icon").length === 0) {
           $("#xIconContainer").append(spinnerIcon);
         }
       } else {
-        $(".uHands").addClass("inactive");
+        $(".self-choice-icon").addClass("inactive");
         if ($("#checkMark").length === 0) {
           $("#self-choice-icons-container").append(checkMark);
         }
@@ -174,9 +174,9 @@ $(document).ready(function () {
     // If both players have made a choice
     if (hasPlayerOneChosen && hasPlayerTwoChosen) {
       if (playerId == "2") {
-        $(".xHands").addClass("inactive");
+        $(".opponent-choice-icon").addClass("inactive");
       } else {
-        $(".uHands").addClass("inactive");
+        $(".self-choice-icon").addClass("inactive");
       }
 
       if (playerTurn == "3") {
@@ -210,7 +210,7 @@ $(document).ready(function () {
 
     if (isPlayerOneConnected && isPlayerTwoConnected) {
       // Activates the chat
-      $("#message-input-field").addClass("message-input-fieldBorder");
+      $("#message-input-field").addClass("message-input-field-border");
       $("#message-input-field").removeAttr("disabled");
       $("#message-plane-icon").removeClass("disabled");
       $("#message-plane-icon").addClass("flickerPlane");
@@ -380,7 +380,7 @@ $(document).ready(function () {
 
   let revealsChoices = function () {
     // Removes turn borders and add back the animated borders
-    $("#opponent-player-wrapper").removeClass("currentPlayer");
+    $("#opponent-player-wrapper").removeClass("current-player-wrapper");
     $("#self-player-wrapper").addClass("animated-border");
     $("#opponent-player-wrapper").addClass("animated-border");
     if (playerId == "2") {

@@ -250,6 +250,7 @@ body *:after {
 
 .player-choice-icon {
   font-size: var(--title);
+  cursor: pointer;
 }
 
 #tO {
