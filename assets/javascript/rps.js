@@ -269,8 +269,8 @@ $(document).ready(function () {
     let playerRef = ref(db, "players/" + playerId);
     set(playerRef, {
       name: playerName,
-      losses: 0,
-      wins: 0,
+      losses: "0",
+      wins: "0",
     });
 
     // Remove turn and chat history when a player disconnects
