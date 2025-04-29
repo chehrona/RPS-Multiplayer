@@ -221,6 +221,7 @@ $(document).ready(function () {
       });
 
       // Remove turn and chat history when a player disconnects
+      onDisconnect(ref(db, "players/" + playerId)).remove();
       onDisconnect(turnRef).remove();
       onDisconnect(chatRef).remove();
     }
