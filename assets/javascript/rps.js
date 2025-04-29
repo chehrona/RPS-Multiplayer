@@ -123,13 +123,13 @@ $(document).ready(function () {
   onValue(turnRef, function (snapshot) {
     playerTurn = snapshot.val();
 
-    $("#uBorder").removeClass("animated-border");
+    $("#self-player-wrapper").removeClass("animated-border");
     $("#xBorder").removeClass("animated-border");
 
     if (playerTurn == "1") {
       // Removes highlights from the player 2 and adds it to player 1
       $("#xBorder").removeClass("currentPlayer");
-      $("#uBorder").addClass("currentPlayer");
+      $("#self-player-wrapper").addClass("currentPlayer");
 
       $(".xHands").addClass("disabled");
       if (playerTurn === playerId) {
@@ -141,7 +141,7 @@ $(document).ready(function () {
       }
     } else if (playerTurn == "2") {
       // Removes highlights from the player 1 and adds it to player 2
-      $("#uBorder").removeClass("currentPlayer");
+      $("#self-player-wrapper").removeClass("currentPlayer");
       $("#xBorder").addClass("currentPlayer");
 
       $(".uHands").addClass("disabled");
@@ -323,13 +323,13 @@ $(document).ready(function () {
 
   // Creates modals based on the message passed to the function.
   let createsModals = function (message) {
-    $("#playZone").addClass("disabled");
+    $(".player-zone-container").addClass("disabled");
     $(".popup").addClass("active");
     $("#popupContent").text(message);
 
     setTimeout(function () {
       $(".popup").removeClass("active");
-      $("#playZone").removeClass("disabled");
+      $(".player-zone-container").removeClass("disabled");
     }, 3000);
   };
 
@@ -396,7 +396,7 @@ $(document).ready(function () {
   let revealsChoices = function () {
     // Removes turn borders and add back the animated borders
     $("#xBorder").removeClass("currentPlayer");
-    $("#uBorder").addClass("animated-border");
+    $("#self-player-wrapper").addClass("animated-border");
     $("#xBorder").addClass("animated-border");
     if (playerId == "2") {
       // Waits before removing the check mark and adding the player 1's choice

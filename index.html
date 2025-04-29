@@ -22,20 +22,20 @@
   <body>
     <div class="body-container">
       <div class="title-container animated-border">
-        <div class="title">
+        <div class="title-text">
           <div>R</div>
-          <div id="tO" class="flickerLetter">o</div>
+          <div id="tO" class="animated-letter">o</div>
           <div>ck</div>
         </div>
-        <div class="title">
+        <div class="title-text">
           <div>Pa</div>
-          <div id="tPe" class="flickerLetter">pe</div>
+          <div id="tPe" class="animated-letter">pe</div>
           <div>r</div>
         </div>
-        <div class="title">
-          <div id="tS" class="flickerLetter">S</div>
+        <div class="title-text">
+          <div id="tS" class="animated-letter">S</div>
           <div>ci</div>
-          <div id="tS" class="flickerLetter">s</div>
+          <div id="tS" class="animated-letter">s</div>
           <div>sors</div>
         </div>
       </div>
@@ -61,14 +61,10 @@
       <div class="popup">
         <p id="popupContent">message</p>
       </div>
-      <div id="playZone">
-        <div id="yourScreen" class="playerScreen">
-          <i
-            class="fa-solid fa-user header-icon uIcons"
-            id="robotU"
-            data-id-player="1"
-          ></i>
-          <div class="animated-border" id="uBorder">
+      <div class="player-zone-container">
+        <div class="player-screen-container">
+          <i class="fa-solid fa-user header-icon" data-id-player="1"></i>
+          <div class="animated-border player-wrapper" id="self-player-wrapper">
             <div id="yourName" class="names">Player 1</div>
             <div
               class="choice-icons-container"
@@ -90,24 +86,26 @@
                 data-choice="scissors"
               ></i>
             </div>
-            <div class="scores">
-              <div>Wi</div>
-              <div class="flicker">n</div>
-              <div>s</div>
-              <div id="uWinCount">0</div>
-            </div>
-            <div class="scores">
-              <div class="flicker">L</div>
-              <div>os</div>
-              <div class="flicker">s</div>
-              <div>es</div>
-              <div id="uLossCount">0</div>
+            <div class="footer-container">
+              <div class="score-container">
+                <div>Wi</div>
+                <div class="flicker">n</div>
+                <div>s</div>
+                <div id="uWinCount">0</div>
+              </div>
+              <div class="score-container">
+                <div class="flicker">L</div>
+                <div>os</div>
+                <div class="flicker">s</div>
+                <div>es</div>
+                <div id="uLossCount">0</div>
+              </div>
             </div>
           </div>
         </div>
-        <div id="chatScreen">
-          <i class="fa-solid fa-message header-icon" id="robotM"></i>
-          <div class="animated-border">
+        <div class="chat-screen-container">
+          <i class="fa-solid fa-message header-icon"></i>
+          <div class="animated-border" id="chat-wrapper">
             <div id="messageBoard"></div>
             <div id="messageSender">
               <input id="messageBox" disabled />
@@ -115,14 +113,15 @@
             </div>
           </div>
         </div>
-
-        <div id="opponentScreen" class="playerScreen">
+        <div class="player-screen-container">
           <i
             class="fa-solid fa-user-tie header-icon xIcons"
-            id="robotX"
             data-id-player="2"
           ></i>
-          <div class="animated-border" id="xBorder">
+          <div
+            class="animated-border player-wrapper"
+            id="opponent-player-wrapper"
+          >
             <h1 id="opponentName" class="names">Player 2</h1>
             <div class="choice-icons-container" id="xIconContainer">
               <i
@@ -142,18 +141,20 @@
               ></i>
             </div>
             <div>
-              <div class="scores">
-                <div class="flicker">W</div>
-                <div>i</div>
-                <div class="flicker">n</div>
-                <div>s</div>
-                <div id="xWinCount">0</div>
-              </div>
-              <div class="scores">
-                <div>L</div>
-                <div class="flicker">os</div>
-                <div>ses</div>
-                <div id="xLossCount">0</div>
+              <div class="footer-container">
+                <div class="score-container">
+                  <div class="flicker">W</div>
+                  <div>i</div>
+                  <div class="flicker">n</div>
+                  <div>s</div>
+                  <div id="xWinCount">0</div>
+                </div>
+                <div class="score-container">
+                  <div>L</div>
+                  <div class="flicker">os</div>
+                  <div>ses</div>
+                  <div id="xLossCount">0</div>
+                </div>
               </div>
             </div>
           </div>
