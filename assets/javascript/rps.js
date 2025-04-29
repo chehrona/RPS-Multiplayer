@@ -219,11 +219,6 @@ $(document).ready(function () {
       update(ref(db), {
         turn: "1",
       });
-
-      // Remove turn and chat history when a player disconnects
-      onDisconnect(ref(db, "players/" + playerId)).remove();
-      onDisconnect(turnRef).remove();
-      onDisconnect(chatRef).remove();
     }
 
     // Prevents entering another name.
@@ -254,8 +249,8 @@ $(document).ready(function () {
       wins: 0,
     });
 
-    onDisconnect(playerRef).remove();
-    onDisconnect(chatRef).remove();
+    // onDisconnect(playerRef).remove();
+    // onDisconnect(chatRef).remove();
   };
 
   $(".player-choice-icon").on("click", function () {
@@ -465,4 +460,9 @@ $(document).ready(function () {
     $(this).val("");
     $("#messageBoard").scrollTop(1000000);
   });
+
+  // Remove turn and chat history when a player disconnects
+  onDisconnect(ref(db, "players/" + playerId)).remove();
+  onDisconnect(turnRef).remove();
+  onDisconnect(chatRef).remove();
 });
