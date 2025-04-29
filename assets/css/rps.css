@@ -26,14 +26,19 @@ body *:after {
   --white: rgb(255, 255, 255);
   --grey: rgb(48, 47, 47);
   --purple: rgb(147, 74, 255);
+  --orange: rgb(255, 149, 0);
+  --yellow: rgb(229, 247, 31);
 
   /* Fonts */
   --header: 100px;
+  --title: 90px;
+  --subtitle: 60px;
+  --body: 50px;
 }
 
+/* General styles */
 .i {
   color: rgba(0, 0, 0, 0.181);
-  font-family: none;
 }
 
 .body-container {
@@ -41,11 +46,44 @@ body *:after {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
   padding: 10px;
+  width: 100%;
   height: 100%;
 }
 
+.animated-border {
+  animation: shadowFade 10s infinite;
+  animation-delay: 4s;
+}
+
+.animated-letter {
+  animation-name: text-flicker-out-glow;
+  animation-duration: 30s;
+  animation-iteration-count: infinite;
+}
+
+/* Header */
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  gap: 15px;
+  width: 550px;
+  border: 8px double var(--blue);
+  border-radius: 15px;
+}
+
+.title-text {
+  color: var(--pink);
+  font-family: clubSign;
+  text-shadow: 0px 0px 30px var(--pink);
+  text-align: center;
+  font-size: var(--header);
+  display: flex;
+}
+
+/* Instruction to play the game */
 .instruction-container {
   display: flex;
   position: absolute;
@@ -56,7 +94,7 @@ body *:after {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  padding: 16px;
+  padding: 10px;
   align-items: center;
   justify-content: center;
   max-width: 600px;
@@ -101,27 +139,14 @@ body *:after {
   color: var(--white);
 }
 
+/* Instruction to play the game */
+
 .choice-icons-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 10px;
-}
-
-/* Blue borders for the titles and cards */
-.animated-border {
-  animation: shadowFade 10s infinite;
-  animation-delay: 4s;
-}
-
-/* Titles for the game, player names and wins */
-.title-text {
-  color: var(--pink);
-  font-family: clubSign;
-  text-shadow: 0px 0px 30px var(--pink);
-  text-align: center;
-  font-size: var(--header);
-  display: flex;
 }
 
 /* Input field for player name */
@@ -146,7 +171,7 @@ body *:after {
   background-color: transparent;
   outline: none;
   border: 0px transparent;
-  font-size: 46px;
+  font-size: var(--body);
   padding-left: 5px;
   padding-bottom: 0px;
   padding-top: 0px;
@@ -158,7 +183,7 @@ body *:after {
 
 #start {
   font-family: clubSign;
-  font-size: 46px;
+  font-size: var(--body);
   width: 25%;
   color: var(--green);
   font-weight: bolder;
@@ -176,11 +201,6 @@ body *:after {
 
 #nameEnter::placeholder {
   color: var(--white);
-}
-
-#nameEnter:hover::placeholder,
-#nameEnter:focus::placeholder {
-  opacity: 0;
 }
 
 /* Holds the cards with the player names */
@@ -202,38 +222,42 @@ body *:after {
 }
 
 .header-icon {
-  font-size: 70px;
+  font-size: var(--subtitle);
   -webkit-text-stroke: 2px var(--purple);
   text-shadow: 0px 0px 20px var(--purple);
   margin-bottom: 20px;
-  animation-name: bot-fade;
-  animation-duration: 10s;
-  animation-iteration-count: 4;
 }
 
-.chat-screen-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+.player-wrapper {
   width: 100%;
-  align-items: center;
-}
-
-.title-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  gap: 15px;
-  width: 550px;
   border: 8px double var(--blue);
   border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
 }
 
-.animated-letter {
-  animation-name: text-flicker-out-glow;
-  animation-duration: 30s;
-  animation-iteration-count: infinite;
+.player-name {
+  font-family: clubSign;
+  font-size: var(--title);
+  color: var(--white);
+  text-shadow: 0px 0px 30px var(--white);
+  padding: 10px 20px;
+}
+
+.score-container {
+  font-family: clubSign;
+  font-size: var(--subtitle);
+  display: flex;
+  color: var(--white);
+  justify-content: center;
+  text-shadow: 0px 0px 30px var(--white);
+}
+
+.player-choice-icon {
+  font-size: var(--title);
 }
 
 #tO {
@@ -244,26 +268,22 @@ body *:after {
   animation-delay: 5s;
 }
 
-i {
-  background-color: transparent;
-}
-
 .paper {
-  -webkit-text-stroke: 2px rgb(255, 149, 0);
-  text-shadow: 0px 0px 20px rgb(255, 149, 0);
+  -webkit-text-stroke: 2px var(--orange);
+  text-shadow: 0px 0px 20px var(--orange);
 }
 
 .paper:hover {
-  text-shadow: 0px 0px 50px rgb(255, 149, 0);
+  text-shadow: 0px 0px 50px var(--orange);
 }
 
 .rock {
-  -webkit-text-stroke: 2px rgb(229, 247, 31);
-  text-shadow: 0px 0px 20px rgb(229, 247, 31);
+  -webkit-text-stroke: 2px var(--yellow);
+  text-shadow: 0px 0px 20px var(--yellow);
 }
 
 .rock:hover {
-  text-shadow: 0px 0px 50px rgb(229, 247, 31);
+  text-shadow: 0px 0px 50px var(--yellow);
 }
 
 .scissor {
@@ -275,30 +295,8 @@ i {
   text-shadow: 0px 0px 50px var(--green);
 }
 
-.names {
-  font-family: clubSign;
-  font-size: 70px;
-  color: var(--white);
-  text-shadow: 0px 0px 30px var(--white);
-  margin-top: 5px;
-  margin-bottom: 10px;
-}
-
 .footer-container {
   padding: 20px 0px;
-}
-
-.score-container {
-  font-family: clubSign;
-  font-size: 50px;
-  display: flex;
-  color: var(--white);
-  justify-content: center;
-  text-shadow: 0px 0px 30px var(--white);
-}
-
-.player-choice-icon {
-  font-size: 90px;
 }
 
 .flicker {
@@ -308,30 +306,28 @@ i {
 }
 
 #uWinCount {
-  margin-left: 3%;
+  margin-left: 5px;
 }
 
 #xWinCount {
-  margin-left: 3%;
+  margin-left: 5px;
 }
 
 #uLossCount {
-  margin-left: 3%;
+  margin-left: 5px;
 }
 
 #xLossCount {
-  margin-left: 3%;
+  margin-left: 5px;
 }
 
-.player-wrapper {
-  width: 100%;
-  border: 8px double var(--blue);
-  border-radius: 15px;
+/* Chat card */
+.chat-screen-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  justify-content: center;
   height: 100%;
+  width: 100%;
+  align-items: center;
 }
 
 #chat-wrapper {
@@ -724,14 +720,6 @@ i {
     border: 4px double var(--blue);
   }
 
-  #nameEnter {
-    font-size: 44px;
-  }
-
-  #start {
-    font-size: 44px;
-  }
-
   #messageBoard {
     display: block;
     overflow-y: scroll;
@@ -783,8 +771,8 @@ i {
   }
 
   .myIconBorder {
-    border: 2px solid rgb(229, 247, 31);
-    box-shadow: 0px 0px 10px rgb(229, 247, 31);
+    border: 2px solid var(--yellow);
+    box-shadow: 0px 0px 10px var(--yellow);
   }
 
   .userIcons {
@@ -794,18 +782,18 @@ i {
   }
 
   .botIconBorder {
-    border: 2px solid rgb(255, 149, 0);
-    box-shadow: 0px 0px 10px rgb(255, 149, 0);
+    border: 2px solid var(--orange);
+    box-shadow: 0px 0px 10px var(--orange);
   }
 
   .myComment {
-    border: 2px solid rgb(229, 247, 31);
-    box-shadow: 0px 0px 10px rgb(229, 247, 31);
+    border: 2px solid var(--yellow);
+    box-shadow: 0px 0px 10px var(--yellow);
   }
 
   .otherComment {
-    border: 2px solid rgb(255, 149, 0);
-    box-shadow: 0px 0px 10px rgb(255, 149, 0);
+    border: 2px solid var(--orange);
+    box-shadow: 0px 0px 10px var(--orange);
   }
 
   #messageSender {
@@ -843,14 +831,5 @@ i {
 
   #messageBox::placeholder {
     color: var(--white);
-  }
-
-  #messageBox:focus::placeholder {
-    opacity: 0;
-  }
-
-  .names {
-    font-size: 90px;
-    padding: 10px 20px;
   }
 }

@@ -1,4 +1,11 @@
 @media screen and (max-width: 480px) {
+  :root {
+    /* Fonts */
+    --header: 75px;
+    --title: 65px;
+    --body: 50px;
+  }
+
   .instruction-container {
     width: 95%;
   }
@@ -14,6 +21,11 @@
 
   .header-icon {
     display: none;
+  }
+
+  .player-zone-container {
+    width: 100%;
+    flex-direction: column;
   }
 
   .player-screen-container {

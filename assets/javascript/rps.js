@@ -64,20 +64,20 @@ $(document).ready(function () {
     if (firstPlayerId) {
       playerOneName = snapshot.val()["1"].name;
       isPlayerOneConnected = true;
-      $("#yourName").html(playerOneName);
+      $("#self-player-name").html(playerOneName);
 
       if (!isPlayerTwoConnected) {
-        $("#opponentName").html("Waiting...");
+        $("#opponent-player-name").html("Waiting...");
       }
     }
 
     if (secondPlayerId) {
       playerTwoName = dbData["2"].name;
       isPlayerTwoConnected = true;
-      $("#opponentName").html(playerTwoName);
+      $("#opponent-player-name").html(playerTwoName);
 
       if (!isPlayerOneConnected) {
-        $("#yourName").html("Waiting...");
+        $("#self-player-name").html("Waiting...");
       }
     }
 
@@ -195,11 +195,11 @@ $(document).ready(function () {
 
     // If the player 1 slot is occupied, immediately put the entered name to the opponent screen to prevent manual selection.
     if (!isPlayerOneConnected && !isPlayerTwoConnected) {
-      $("#yourName").html(playerName);
+      $("#self-player-name").html(playerName);
 
       playerId = "1";
     } else if (isPlayerOneConnected) {
-      $("#opponentName").html(playerName);
+      $("#opponent-player-name").html(playerName);
 
       playerId = "2";
     }
@@ -254,23 +254,6 @@ $(document).ready(function () {
     onDisconnect(playerRef).remove();
     onDisconnect(chatRef).remove();
   };
-
-  $(".header-icon").on("click", function () {
-    $(".header-icon").removeClass("highlightheader-icon");
-
-    // Prevents user updates if either of the player is connected.
-    if (isPlayerOneConnected || isPlayerTwoConnected) {
-      return;
-    }
-    if (playerName == "") {
-      createsModals("Please enter your name");
-      return;
-    }
-
-    playerId = $(this).attr("data-id-player");
-
-    joinGame();
-  });
 
   $(".player-choice-icon").on("click", function () {
     let choice = $(this).attr("data-choice");
