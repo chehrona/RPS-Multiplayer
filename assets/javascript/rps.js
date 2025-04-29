@@ -38,7 +38,7 @@ $(document).ready(function () {
 
   $(".closeButton").on("click", function () {
     $(".instruction-container").addClass("close-instruction-container");
-    $("#playerName").removeClass("disabled");
+    $("#player-name-input-container").removeClass("disabled");
   });
 
   $(".information-icon").on("click", function () {
@@ -186,7 +186,7 @@ $(document).ready(function () {
   });
 
   const onNameEntered = () => {
-    playerName = $("#nameEnter").val().trim();
+    playerName = $("#player-name-input-field").val().trim();
     playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1);
     if (playerName === "") {
       createsModals("Please enter your name");
@@ -224,13 +224,13 @@ $(document).ready(function () {
     }
 
     // Prevents entering another name.
-    $("#playerName").addClass("disabled");
-    $("#nameEnter").attr("disabled", true);
-    $("#nameEnter").val("");
+    $("#player-name-input-container").addClass("disabled");
+    $("#player-name-input-field").attr("disabled", true);
+    $("#player-name-input-field").val("");
   };
 
   // Player types name and presses enter key
-  $("#nameEnter").keypress(function (e) {
+  $("#player-name-input-field").keypress(function (e) {
     // Only accept 'enter' key
     if (e.keyCode === "13") {
       onNameEntered();
