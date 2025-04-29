@@ -140,8 +140,6 @@ body *:after {
   color: var(--white);
 }
 
-/* Instruction to play the game */
-
 .choice-icons-container {
   display: flex;
   flex-wrap: wrap;
@@ -159,6 +157,7 @@ body *:after {
   border-radius: 10px;
   border: 4px double var(--blue);
   height: 50px;
+  margin: 10px;
 }
 
 #player-name-input-field {

@@ -39,13 +39,19 @@
   #player-name-input-container {
     border: 8px double var(--blue);
     border-radius: 12px;
-
     margin: 0 auto;
-    margin-top: 10px;
     height: 55px;
     position: relative;
     animation-delay: 2s;
     width: 90%;
     padding-bottom: 5px;
+  }
+
+  .score-container {
+    font-size: var(--body);
+  }
+
+  .player-choice-icon {
+    font-size: 90px;
   }
 }

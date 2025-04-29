@@ -161,7 +161,7 @@ $(document).ready(function () {
         $(".self-choice-icon").addClass("inactive");
         $(".opponent-choice-icon").addClass("inactive");
         if ($("#spinner-icon").length === 0) {
-          $("#xIconContainer").append(spinnerIcon);
+          $("#opponent-choice-container").append(spinnerIcon);
         }
       } else {
         $(".self-choice-icon").addClass("inactive");
