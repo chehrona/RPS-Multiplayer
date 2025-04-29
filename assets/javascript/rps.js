@@ -38,15 +38,6 @@ $(document).ready(function () {
   let checkMark =
     '<i class="fa-solid fa-check selected-icon player-choice-icon feedback-icon" id="checkMark"></i>';
 
-  $(".closeButton").on("click", function () {
-    $(".instruction-container").addClass("close-instruction-container");
-    $("#player-name-input-container").removeClass("disabled");
-  });
-
-  $(".information-icon").on("click", function () {
-    $(".instruction-container").removeClass("close-instruction-container");
-  });
-
   // Db values changed event listener.
   // This function is called everytime players data changes.
   onValue(playersRef, function (snapshot) {
@@ -64,9 +55,15 @@ $(document).ready(function () {
     let secondPlayerId = snapshot.child("2").exists();
 
     if (firstPlayerId) {
-      playerOneName = snapshot.val()["1"].name;
+      playerOneName = dbData["1"].name;
+      playerOneWins = dbData["1"].wins;
+      playerOneLosses = dbData["1"].losses;
+
       isPlayerOneConnected = true;
+
       $("#self-player-name").html(playerOneName);
+      $("#self-win-counter").html(playerOneWins);
+      $("#self-loss-counter").html(playerOneLosses);
 
       if (!isPlayerTwoConnected) {
         $("#opponent-player-name").html("Waiting...");
@@ -75,8 +72,14 @@ $(document).ready(function () {
 
     if (secondPlayerId) {
       playerTwoName = dbData["2"].name;
+      playerTwoLosses = dbData["2"].losses;
+      playerTwoWins = dbData["2"].wins;
+
       isPlayerTwoConnected = true;
+
       $("#opponent-player-name").html(playerTwoName);
+      $("#opponent-win-counter").html(playerTwoWins);
+      $("#opponent-loss-counter").html(playerTwoLosses);
 
       if (!isPlayerOneConnected) {
         $("#self-player-name").html("Waiting...");
@@ -109,17 +112,6 @@ $(document).ready(function () {
     } else {
       hasPlayerTwoChosen = false;
     }
-
-    // Retrieves wins and losses
-    playerOneWins = dbData["1"].wins;
-    playerTwoWins = dbData["2"].wins;
-    playerOneLosses = dbData["1"].losses;
-    playerTwoLosses = dbData["2"].losses;
-
-    $("#self-win-counter").html(playerOneWins);
-    $("#self-loss-counter").html(playerOneLosses);
-    $("#opponent-win-counter").html(playerTwoWins);
-    $("#opponent-loss-counter").html(playerTwoLosses);
   });
 
   onValue(turnRef, function (snapshot) {
@@ -187,6 +179,38 @@ $(document).ready(function () {
     }
   });
 
+  // Chat functionality
+  onValue(chatRef, function (snapshot) {
+    $("#messageBoard").empty();
+    let chatData = snapshot.val();
+    for (let key in chatData) {
+      if (chatData[key].playerId === "1") {
+        $("#messageBoard").append(
+          '<div class="message-row-container self-message-row-container"><div class="message-icon-wrapper self-message-wrapper">' +
+            '<i class="fa-solid fa-user message-user-icon"></i></div><div class="message-text-wrapper self-message-wrapper"><p>' +
+            chatData[key].message +
+            "</p></div></div>"
+        );
+      } else {
+        $("#messageBoard").append(
+          '<div class="message-row-container"><div class="message-icon-wrapper opponent-message-wrapper">' +
+            '<i class="fa-solid fa-user-tie message-user-icon"></i></div><div class="message-text-wrapper opponent-message-wrapper"><p>' +
+            chatData[key].message +
+            "</p></div></div>"
+        );
+      }
+    }
+  });
+
+  $(".closeButton").on("click", function () {
+    $(".instruction-container").addClass("close-instruction-container");
+    $("#player-name-input-container").removeClass("disabled");
+  });
+
+  $(".information-icon").on("click", function () {
+    $(".instruction-container").removeClass("close-instruction-container");
+  });
+
   const onNameEntered = () => {
     playerName = $("#player-name-input-field").val().trim();
     playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1);
@@ -249,8 +273,10 @@ $(document).ready(function () {
       wins: 0,
     });
 
-    // onDisconnect(playerRef).remove();
-    // onDisconnect(chatRef).remove();
+    // Remove turn and chat history when a player disconnects
+    onDisconnect(ref(db, "players/" + playerId)).remove();
+    onDisconnect(turnRef).remove();
+    onDisconnect(chatRef).remove();
   };
 
   $(".player-choice-icon").on("click", function () {
@@ -408,29 +434,6 @@ $(document).ready(function () {
     }
   };
 
-  // Chat functionality
-  onValue(chatRef, function (snapshot) {
-    $("#messageBoard").empty();
-    let chatData = snapshot.val();
-    for (let key in chatData) {
-      if (chatData[key].playerId === "1") {
-        $("#messageBoard").append(
-          '<div class="message-row-container self-message-row-container"><div class="message-icon-wrapper self-message-wrapper">' +
-            '<i class="fa-solid fa-user message-user-icon"></i></div><div class="message-text-wrapper self-message-wrapper"><p>' +
-            chatData[key].message +
-            "</p></div></div>"
-        );
-      } else {
-        $("#messageBoard").append(
-          '<div class="message-row-container"><div class="message-icon-wrapper opponent-message-wrapper">' +
-            '<i class="fa-solid fa-user-tie message-user-icon"></i></div><div class="message-text-wrapper opponent-message-wrapper"><p>' +
-            chatData[key].message +
-            "</p></div></div>"
-        );
-      }
-    }
-  });
-
   $("#message-plane-icon").on("click", function (e) {
     e.preventDefault();
 
@@ -460,9 +463,4 @@ $(document).ready(function () {
     $(this).val("");
     $("#messageBoard").scrollTop(1000000);
   });
-
-  // Remove turn and chat history when a player disconnects
-  onDisconnect(ref(db, "players/" + playerId)).remove();
-  onDisconnect(turnRef).remove();
-  onDisconnect(chatRef).remove();
 });
