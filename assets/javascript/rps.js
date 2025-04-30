@@ -42,19 +42,27 @@ $(document).ready(function () {
 
   if (!wasInstructionShown) {
     $(".instruction-container").removeClass("close-instruction-container");
+  } else {
+    $("#player-name-input-container").removeClass("disabled");
   }
 
   // Db values changed event listener.
   // This function is called everytime players data changes.
-  onValue(playersRef, function (snapshot) {
-    let dbData = snapshot.val();
+  onValue(ref(db), (snapshot) => {
+    const dbData = snapshot.val();
 
     if (dbData === null) {
-      isPlayerOneConnected = false;
-      isPlayerTwoConnected = false;
-      playerOneName = "";
-      playerTwoName = "";
-      $("#messageBoard").empty();
+      reset();
+    }
+
+    console.log(dbData, "data is null");
+  });
+
+  onValue(playersRef, function (snapshot) {
+    const dbData = snapshot.val();
+
+    if (dbData === null) {
+      reset();
       return;
     }
 
@@ -161,7 +169,7 @@ $(document).ready(function () {
         $(".self-choice-icon").addClass("inactive");
         $(".opponent-choice-icon").addClass("inactive");
         if ($("#spinner-icon").length === 0) {
-          $("#opponent-choice-container").append(spinnerIcon);
+          $("#opponent-choice-icons-container").append(spinnerIcon);
         }
       } else {
         $(".self-choice-icon").addClass("inactive");
@@ -182,7 +190,7 @@ $(document).ready(function () {
       if (playerTurn == "3") {
         revealsChoices();
         gameRules();
-        setTimeout(resetGame, 4000);
+        setTimeout(resetTurn, 4000);
       }
     }
   });
@@ -284,7 +292,7 @@ $(document).ready(function () {
     });
 
     // Remove turn and chat history when a player disconnects
-    onDisconnect(ref(db, "players/" + playerId)).remove();
+    onDisconnect(playersRef).remove();
     onDisconnect(turnRef).remove();
     onDisconnect(chatRef).remove();
   };
@@ -314,7 +322,7 @@ $(document).ready(function () {
     }
   });
 
-  let resetGame = function () {
+  let resetTurn = function () {
     set(playerOneRef, {
       name: playerOneName,
       wins: playerOneWins,
@@ -442,6 +450,64 @@ $(document).ready(function () {
         $("#xScissor").addClass("selected-icon");
       }
     }
+  };
+
+  const reset = () => {
+    playerTurn = null;
+    playerName = "";
+    playerId = "";
+    playerOneChoice = "";
+    playerTwoChoice = "";
+    playerOneWins = 0;
+    playerTwoWins = 0;
+    playerOneLosses = 0;
+    playerTwoLosses = 0;
+    isPlayerOneConnected = false;
+    isPlayerTwoConnected = false;
+    playerOneName = "";
+    playerTwoName = "";
+    hasPlayerOneChosen = false;
+    hasPlayerTwoChosen = false;
+
+    // Reset UI
+    $("#self-player-name").html("");
+    $("#self-win-counter").html(0);
+    $("#self-loss-counter").html(0);
+    $("#opponent-player-name").html("");
+    $("#opponent-win-counter").html(0);
+    $("#opponent-loss-counter").html(0);
+
+    $("#player-name-input-container").removeClass("disabled");
+    $("#player-name-input-field").attr("disabled", false);
+
+    $("#checkMark").remove();
+    $("#spinner").remove();
+
+    $(".player-choice-icon").addClass("disabled");
+    $(".player-choice-icon").removeClass("selected-icon");
+
+    $("#opponent-player-wrapper").removeClass("current-player-wrapper");
+    $("#self-player-wrapper").removeClass("current-player-wrapper");
+
+    // Reset the chat
+    $("#messageBoard").empty();
+
+    // Disable the chat
+    $("#message-input-field").removeClass("message-input-field-border");
+    $("#message-input-field").attr("disabled", true);
+    $("#message-input-field").attr("placeholder", "");
+    $("#message-plane-icon").addClass("disabled");
+    $("#message-plane-icon").removeClass("flickerPlane");
+
+    $("#uRock").removeClass("inactive");
+    $("#uPaper").removeClass("inactive");
+    $("#uScissor").removeClass("inactive");
+    $("#xRock").removeClass("inactive");
+    $("#xPaper").removeClass("inactive");
+    $("#xScissor").removeClass("inactive");
+
+    $("#opponent-player-wrapper").removeClass("current-player-wrapper");
+    $("#self-player-wrapper").removeClass("current-player-wrapper");
   };
 
   $("#message-plane-icon").on("click", function (e) {
