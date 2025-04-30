@@ -470,10 +470,10 @@ $(document).ready(function () {
     hasPlayerTwoChosen = false;
 
     // Reset UI
-    $("#self-player-name").html("");
+    $("#self-player-name").html("Player 1");
     $("#self-win-counter").html(0);
     $("#self-loss-counter").html(0);
-    $("#opponent-player-name").html("");
+    $("#opponent-player-name").html("Player 2");
     $("#opponent-win-counter").html(0);
     $("#opponent-loss-counter").html(0);
 
